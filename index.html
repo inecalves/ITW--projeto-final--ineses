@@ -132,21 +132,5 @@
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"
     integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA="
     crossorigin="anonymous"></script>
-    <script>
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-
-        // Function to toggle theme
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-bs-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            // Update the theme attribute
-            body.setAttribute('data-bs-theme', newTheme);
-
-            // Update button text
-            themeToggle.textContent = newTheme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode';
-        });
-    </script>
 </body>
 </html>
