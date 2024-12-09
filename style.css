@@ -1,0 +1,96 @@
+body {
+    margin: 0;
+    font-family: 'Open Sans', "sans-serif";
+}
+
+
+p {
+    font-size: 1.15em;
+}
+
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #333333;
+}
+
+
+.navbar-nav .nav-link {    
+    font-size: 1.2em;
+}
+
+
+/*Estas duas partes fazem com que se passar o rato por cima o texto fique maior*/
+.navbar-nav .nav-link:hover {  
+    color: #000000;
+    transform: scale(1.1);
+    font-weight: bold;
+}
+
+
+.dropdown-item {
+    font-size: 1.2em;
+}
+
+
+.pagination > li > a:focus,
+            .pagination > li > a:hover,
+            .pagination > li > span:focus,
+            .pagination > li > span:hover{
+                color: #333333;
+                background-color: #99c5e7;
+                border-color: #ddd;
+            }
+
+            .pagination > .active > a{
+                color: rgb(0, 0, 0);
+                background-color: #99c5e7 !Important;
+                border: solid 1px #7aa1c0!Important;
+            }
+
+            
+
+/* parte do professor */
+/* button default
+---------------------------- */
+.btn-default {
+    color: #333;
+    background-color: #f8f9fa;
+    border-color: #ccc;
+}
+
+    .btn-default:focus {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #8c8c8c;
+    }
+
+    .btn-default:active,
+    .btn-default:hover {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+    }
+
+/* button-xs
+---------------------------- */
+.btn-group-xs > .btn, .btn-xs {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+
+.card-text {
+    font-size: 1.2em;
+}
+
+
+.col-xxl-9 {
+    font-size: 1.2em;
+}
