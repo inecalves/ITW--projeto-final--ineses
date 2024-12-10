@@ -13,7 +13,7 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary fixed-top">
         <div class="container">
             <!-- Logotipo -->
             <a class="navbar-brand" href="index.html"><img src="Images/Paris2024.png" height="40" alt="Logo do Site"></a>
@@ -89,13 +89,16 @@
                     </li>
                     <!-- Botões de Modo Claro/Escuro -->
                     <li class="nav-item">
-                        <div class="nav-link" type="button" data-bs-theme-value="light" aria-pressed="false">
-                            <i class="fa fa-sun-o" title="Modo claro"></i>
+                        <div class="nav-link" id="lightMode" type="button" data-bs-theme-value="light" aria-pressed="false">
+                            <i class="theme-icon fa fa-sun-o" title="Modo claro"></i>
                         </div>
                     </li>
+                    <li class="navbar-text hstack">
+                        <div class="vr"></div>
+                    </li>
                     <li class="nav-item">
-                        <div class="nav-link" type="button" data-bs-theme-value="dark" aria-pressed="false">
-                            <i class="fa fa-moon-o" title="Modo escuro"></i>
+                        <div class="nav-link" id="darkMode" type="button" data-bs-theme-value="dark" aria-pressed="false">
+                            <i class="theme-icon fa fa-moon-o" title="Modo escuro"></i>
                         </div>
                     </li>
                 </ul>
@@ -182,7 +185,7 @@
         </div>
     </div>
     <!--End of Work Area-->
-    <nav class="navbar navbar-light bg-light fixed-bottom">
+    <nav class="navbar navbar-light bg-body-tertiary fixed-bottom">
         <div class="container small">
             <div class="navbar-text">&copy;  Introdução as Tecnologias Web - 2024/25</div>
             <div class="navbar-text">Made by Ineses with <i class="fa fa-heart-o text-danger"></i></div>
@@ -198,5 +201,6 @@
     integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA="
     crossorigin="anonymous"></script>
     <script src="teams.js"></script>
+    <script src="darkmode.js"></script>
 </body>
 </html>
