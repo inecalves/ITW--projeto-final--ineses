@@ -90,11 +90,21 @@
                         <a class="nav-link" href="loja.html">Merch</a>
                     </li>
                     <!-- Ícone do Carrinho -->
-                    <li class="nav-item">
-                        <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" title="Carrinho">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link position-relative dropdown-toggle" href="#" id="cartDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Carrinho">
                             <i class="fa fa-shopping-cart"></i>
                             <span id="cart-count" class="badge rounded-pill bg-success d-none">0</span>
                         </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cartDropdown">
+                            <div id="cart-items" class="p-3">
+                                <!-- Conteúdo do carrinho será gerado dinamicamente -->
+                                <p class="text-center text-muted">Carrinho vazio</p>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="px-3">
+                                <strong>Total: </strong><span id="dropdown-total">0.00</span> €
+                            </div>
+                        </ul>
                     </li>
                     <!-- Separador -->
                     <li class="navbar-text hstack mx-2">
@@ -144,19 +154,19 @@
                 <div class="col-sm-4">
                     <input type="hidden" id="qty1" name="qty1" value="0"> <!--value=0 é quantas vezes o intem é adicionado ao carrinho-->
                     <h5>Paris 2024 Olympics Graphic T-Shirt - Blue - Unisex<br><small>fk58605</small></h5>
-                    <div class="text-danger text-right"><input id="price1" name="price1" value="24.99" class="text-danger text-right border-0" readonly=""> €</div>
+                    <div class="text-lightgray text-right"><input id="price1" name="price1" value="24.99" class="text-lightgray text-right border-0" readonly=""> €</div>
                     <button type="button" class="btn btn-primary btn-block" onclick="this.blur(); addProduct(1)"><i class="fa fa-shopping-bag"></i> Adicionar ao meu cesto</button>
                 </div>
                 <div class="col-sm-4">
                     <input type="hidden" id="qty2" name="qty2" value="0">
                     <h5>Paris 2024 Olympics Knit Beanie - Blue - Unisex<br><small>fk58686</small></h5>
-                    <div class="text-danger text-right"><input id="price2" name="price2" value="21.99" class="text-danger text-right border-0" readonly=""> €</div>
+                    <div class="text-lightgray text-right"><input id="price2" name="price2" value="21.99" class="text-lightgray text-right border-0" readonly=""> €</div>
                     <button type="button" class="btn btn-primary btn-block" onclick="this.blur(); addProduct(2)"><i class="fa fa-shopping-bag"></i> Adicionar ao meu cesto</button>
                 </div>
                 <div class="col-sm-4">
                     <input type="hidden" id="qty3" name="qty3" value="0">
                     <h5>Paris 2024 Olympics Classic Baseball Cap - Black - Unisex<br><small>fk58692</small></h5>
-                    <div class="text-danger text-right"><input id="price3" name="price3" value="19.99" class="text-danger text-right border-0" readonly=""> €</div>
+                    <div class="text-lightgray text-right"><input id="price3" name="price3" value="19.99" class="text-lightgray text-right border-0" readonly=""> €</div>
                     <button type="button" class="btn btn-primary btn-block" onclick="this.blur(); addProduct(3)"><i class="fa fa-shopping-bag"></i> Adicionar ao meu cesto</button>
                 </div>
             </div>
@@ -174,19 +184,19 @@
                 <div class="col-sm-4">
                     <input type="hidden" id="qty4" name="qty4" value="0">
                     <h5>Paris 2024 Olympics Winter Coat - Blue - Unisex<br><small>fk58680</small></h5>
-                    <div class="text-danger text-right"><input id="price4" name="price4" value="26.99" class="text-danger text-right border-0" readonly=""> €</div>
+                    <div class="text-lightgray text-right"><input id="price4" name="price4" value="26.99" class="text-lightgray text-right border-0" readonly=""> €</div>
                     <button type="button" class="btn btn-primary btn-block" onclick="this.blur(); addProduct(4)"><i class="fa fa-shopping-bag"></i> Adicionar ao meu cesto</button>
                 </div>
                 <div class="col-sm-4">
                     <input type="hidden" id="qty5" name="qty5" value="0">
                     <h5>Paris 2024 Olympics Graphic T-Shirt - White - Unisex<br><small>fk58697</small></h5>
-                    <div class="text-danger text-right"><input id="price5" name="price5" value="36.99" class="text-danger text-right border-0" readonly=""> €</div>
+                    <div class="text-lightgray text-right"><input id="price5" name="price5" value="36.99" class="text-lightgray text-right border-0" readonly=""> €</div>
                     <button type="button" class="btn btn-primary btn-block" onclick="this.blur(); addProduct(5)"><i class="fa fa-shopping-bag"></i> Adicionar ao meu cesto</button>
                 </div>
                 <div class="col-sm-4">
                     <input type="hidden" id="qty6" name="qty6" value="0">
                     <h5>Paris 2024 Olympics Sports Jacket - Blue - Unisex<br><small>fk58695</small></h5>
-                    <div class="text-danger text-right"><input id="price6" name="price6" value="39.99" class="text-danger text-right border-0" readonly=""> €</div>
+                    <div class="text-lightgray text-right"><input id="price6" name="price6" value="39.99" class="text-lightgray text-right border-0" readonly=""> €</div>
                     <button type="button" class="btn btn-primary btn-block" onclick="this.blur(); addProduct(6)"><i class="fa fa-shopping-bag"></i> Adicionar ao meu cesto</button>
                 </div>
             </div>
@@ -204,19 +214,19 @@
                 <div class="col-sm-4">
                     <input type="hidden" id="qty4" name="qty4" value="0">
                     <h5>Blue T-shirt - Paris 2024 Olympics Sports Edition - Unisex<br><small>fk58680</small></h5>
-                    <div class="text-danger text-right"><input id="price4" name="price4" value="26.99" class="text-danger text-right border-0" readonly=""> €</div>
+                    <div class="text-lightgray text-right"><input id="price4" name="price4" value="26.99" class="text-lightgray text-right border-0" readonly=""> €</div>
                     <button type="button" class="btn btn-primary btn-block" onclick="this.blur(); addProduct(4)"><i class="fa fa-shopping-bag"></i> Adicionar ao meu cesto</button>
                 </div>
                 <div class="col-sm-4">
                     <input type="hidden" id="qty5" name="qty5" value="0">
                     <h5>Blue Hoodie - Paris 2024 Olympics Hoodie - Unisex<br><small>fk58697</small></h5>
-                    <div class="text-danger text-right"><input id="price5" name="price5" value="36.99" class="text-danger text-right border-0" readonly=""> €</div>
+                    <div class="text-lightgray text-right"><input id="price5" name="price5" value="36.99" class="text-lightgray text-right border-0" readonly=""> €</div>
                     <button type="button" class="btn btn-primary btn-block" onclick="this.blur(); addProduct(5)"><i class="fa fa-shopping-bag"></i> Adicionar ao meu cesto</button>
                 </div>
                 <div class="col-sm-4">
                     <input type="hidden" id="qty6" name="qty6" value="0">
                     <h5>White T-shirt - Paris 2024 Olympics Graphic Tee - Unisex<br><small>fk58695</small></h5>
-                    <div class="text-danger text-right"><input id="price6" name="price6" value="39.99" class="text-danger text-right border-0" readonly=""> €</div>
+                    <div class="text-lightgray text-right"><input id="price6" name="price6" value="39.99" class="text-lightgray text-right border-0" readonly=""> €</div>
                     <button type="button" class="btn btn-primary btn-block" onclick="this.blur(); addProduct(6)"><i class="fa fa-shopping-bag"></i> Adicionar ao meu cesto</button>
                 </div>
             </div>
