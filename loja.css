@@ -1,0 +1,50 @@
+.navbar {
+    z-index: 1030; /* Valor padrão do Bootstrap */
+}
+body {
+    padding-top: 56px; /* Altura da navbar */
+}
+
+/* Ajustar tamanho do ícone do carrinho */
+.navbar .fa-shopping-cart {
+    font-size: 1.5rem; /* Tamanho reduzido */
+    line-height: 1; /* Ajusta o espaçamento */
+}
+
+/* Ajustar posição e tamanho do badge */
+#cart-count {
+    font-size: 0.7rem; /* Reduz o tamanho do texto no badge */
+    padding: 0.2em 0.4em; /* Ajusta o preenchimento */
+    position: absolute;
+    top: 0; /* Distância do topo */
+    right: 0; /* Distância da direita */
+    transform: translate(50%, -50%); /* Posiciona corretamente no canto */
+    background-color: #198754; /* Cor do fundo (verde) */
+    color: white; /* Cor do texto */
+    border-radius: 50%; /* Deixa o badge circular */
+    min-width: 1.2rem; /* Garante um tamanho mínimo */
+    min-height: 1.2rem; /* Garante um tamanho mínimo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
+}
+#cart-items .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+#cart-items .cart-item img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+#cart-items .cart-item h6 {
+    margin: 0;
+    flex: 1;
+}
