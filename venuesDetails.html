@@ -71,10 +71,34 @@
                     </li>     
                 </ul>
                 <!--Theme buttons-->
-                <ul class="navbar-nav d-flex justify-content-end" id="bd-theme">
-                    <li class="nav-item"><div class="nav-link" type="button" data-bs-theme-value="light" aria-pressed="false"><i class="theme-icon fa fa-sun-o" title="Modo claro"></i></div></li>
-                    <li class="navbar-text hstack"><div class="vr"></div></li>
-                    <li class="nav-item"><div class="nav-link" type="button" data-bs-theme-value="dark" aria-pressed="false"><i class="theme-icon fa fa-moon-o" title="Modo escuro"></i></div></li>
+                <!-- Botões de Tema e Carrinho -->
+                <ul class="navbar-nav d-flex align-items-center nav-underline" id="bd-theme">
+                    <!-- Link para Merch -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="loja.html">Merch</a>
+                    </li>
+                    <!-- Ícone do Carrinho -->
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" title="Carrinho">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span id="cart-count" class="badge rounded-pill bg-success d-none">0</span>
+                        </a>
+                    </li>
+                    <!-- Separador -->
+                    <li class="navbar-text hstack mx-2">
+                        <div class="vr"></div>
+                    </li>
+                    <!-- Botões de Modo Claro/Escuro -->
+                    <li class="nav-item">
+                        <div class="nav-link" type="button" data-bs-theme-value="light" aria-pressed="false">
+                            <i class="fa fa-sun-o" title="Modo claro"></i>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link" type="button" data-bs-theme-value="dark" aria-pressed="false">
+                            <i class="fa fa-moon-o" title="Modo escuro"></i>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
