@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 function clean() {
     // Limpa o carrinho
+    //limpar
     cart.length = 0;
 
     // Reinicia os contadores na interface
