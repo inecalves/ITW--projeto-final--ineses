@@ -36,9 +36,7 @@ function updateCartDetails() {
         cartItemsContainer.innerHTML = `<p class="text-center text-muted">Carrinho vazio</p>`;
     }
 
-    // Atualiza o total e os contadores
-    document.getElementById("total").textContent = totalPrice.toFixed(2);
-    document.getElementById("quantidades").textContent = totalQty;
+    // Atualiza o total e os contadores apenas no dropdown
     dropdownTotal.textContent = totalPrice.toFixed(2);
 
     if (totalQty > 0) {
@@ -61,11 +59,12 @@ function updateCartDetails() {
 }
 
 
-// Função para adicionar produtos ao carrinho
+
 function addProduct(productId) {
+    const productName = document.querySelector(`input#price${productId}`).closest(".col-sm-4").querySelector("h5").textContent.trim(); // Busca o nome do produto
     const product = {
         id: productId,
-        name: `Produto ${productId}`, // Nome do produto (você pode melhorar)
+        name: productName, // Nome real do produto
         price: parseFloat(document.getElementById(`price${productId}`).value),
         qty: 1,
         image: `Images/tshirt${productId}.avif` // Exemplo de imagem
@@ -102,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 function clean() {
     // Limpa o carrinho
-    //limpar
     cart.length = 0;
 
     // Reinicia os contadores na interface
@@ -126,3 +124,22 @@ function valid() {
     alert("Pedido enviado com sucesso!");
     return true; // Permite o envio do formulário
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const checkoutForm = document.getElementById("checkoutForm");
+
+    checkoutForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Evita o envio padrão
+
+        if (checkoutForm.checkValidity()) {
+            alert("Dados confirmados! Obrigado pelo seu pedido.");
+            // Aqui você pode enviar os dados para o servidor ou processá-los
+            // Limpar o formulário e fechar o modal
+            checkoutForm.reset();
+            const modal = bootstrap.Modal.getInstance(document.getElementById("checkoutModal"));
+            modal.hide();
+        } else {
+            alert("Por favor, preencha todos os campos obrigatórios.");
+        }
+    });
+});
