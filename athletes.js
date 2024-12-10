@@ -142,7 +142,7 @@ var vm = function () {
             select: function (event, ui) {
                 event.preventDefault();
                 $("#procura").val(ui.item.label);
-                window.location.href = "./athleteDetails.html?id=" + ui.item.value;
+                window.location.href = "./athletesDetails.html?id=" + ui.item.value;
 
 
                 // h.loadTitleModal(ui.item.value)
