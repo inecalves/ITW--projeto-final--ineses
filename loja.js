@@ -63,3 +63,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+function clean() {
+    // Limpa o carrinho
+    cart.length = 0;
+
+    // Reinicia os contadores na interface
+    document.getElementById("quantidades").textContent = "0";
+    document.getElementById("total").textContent = "0.00";
+
+    // Oculta o badge do carrinho
+    const badge = document.getElementById("cart-count");
+    badge.textContent = "0";
+    badge.classList.add("d-none");
+}
+function valid() {
+    if (cart.length === 0) {
+        alert("O carrinho está vazio. Adicione produtos antes de enviar o pedido!");
+        return false; // Impede o envio do formulário
+    }
+
+    // Opcional: Exibe os detalhes do pedido no console
+    console.log("Pedido enviado:", cart);
+
+    alert("Pedido enviado com sucesso!");
+    return true; // Permite o envio do formulário
+}

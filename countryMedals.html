@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
     <link href="lib/font-awesome/dist/css/font-awesome.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
+    <style>
+        .text-bronze {
+            color: #cd7f32; /* Cor de bronze */
+        }
+    </style>
+    
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -92,12 +98,13 @@
                 <tr>
                     <th class="d-none d-lg-table-cell align-middle" scope="col">CountryCode</th>
                     <th class="d-none d-xl-table-cell align-middle" scope="col">CountryName</th>
-                    <th scope="col">GoldMedal</th>
-                    <th scope="col">SilverMedal</th>
-                    <th scope="col">BronzeMedal</th>
-                    <th scope="col">Total</th>
+                    <th scope="col"><i class="fa fa-circle text-warning" title="Gold Medal"></i></th>
+                    <th scope="col"><i class="fa fa-circle text-secondary" title="Silver Medal"></i></th>
+                    <th scope="col"><i class="fa fa-circle text-bronze" title="Bronze Medal"></i></th>
+                    <th scope="col"><i class="fa fa-list" title="Total Medals"></i></th>
                 </tr>
             </thead>
+            
             <tbody data-bind="foreach: records">
                 <tr>
                     <td class="d-none d-lg-table-cell align-middle" data-bind="text:CountryCode"></td>
