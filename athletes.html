@@ -14,7 +14,7 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary fixed-top">
         <div class="container">
             <!-- Logotipo -->
             <a class="navbar-brand" href="index.html"><img src="Images/Paris2024.png" height="40" alt="Logo do Site"></a>
@@ -72,9 +72,19 @@
                 </ul>
                 <!--Theme buttons-->
                 <ul class="navbar-nav d-flex justify-content-end" id="bd-theme">
-                    <li class="nav-item"><div class="nav-link" type="button" data-bs-theme-value="light" aria-pressed="false"><i class="theme-icon fa fa-sun-o" title="Modo claro"></i></div></li>
-                    <li class="navbar-text hstack"><div class="vr"></div></li>
-                    <li class="nav-item"><div class="nav-link" type="button" data-bs-theme-value="dark" aria-pressed="false"><i class="theme-icon fa fa-moon-o" title="Modo escuro"></i></div></li>
+                    <li class="nav-item">
+                        <div class="nav-link" id="lightMode" type="button" data-bs-theme-value="light" aria-pressed="false">
+                            <i class="theme-icon fa fa-sun-o" title="Modo claro"></i>
+                        </div>
+                    </li>
+                    <li class="navbar-text hstack">
+                        <div class="vr"></div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link" id="darkMode" type="button" data-bs-theme-value="dark" aria-pressed="false">
+                            <i class="theme-icon fa fa-moon-o" title="Modo escuro"></i>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -85,8 +95,13 @@
     <br>
     <!--TABELA-->
     <div class="container">
-        <div class="border-bottom py-2 mb-2">
-            <h2 data-bind="text:displayName"></h2>
+        <div class="row border-bottom py-2 mb-2">
+            <h2 class="col-6" data-bind="text:displayName"></h2>
+            <div class="col-6" id="cover">
+                <div class="row" style="justify-content:end">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" style="width:40%" id="procura" name="procura" autocomplete="off">
+                </div>
+            </div>
         </div>
         <!-- ko if:athletes().length > 0 -->
         <div class="row small">
@@ -175,5 +190,6 @@
     integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA="
     crossorigin="anonymous"></script>
     <script src="athletes.js"></script>
+    <script src="darkmode.js"></script>
 </body>
 </html>
