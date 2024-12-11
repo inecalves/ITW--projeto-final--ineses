@@ -4,21 +4,21 @@ var vm = function () {
     //---Variáveis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Technical_officials/');
-    self.displayName = 'Official Full Details';
+    self.displayName = 'Technical Officials Details';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     //--- Data Record
-    self.Id = ko.observable();
-    self.Name = ko.observable();
-    self.BirthDate = ko.observable();
-    self.Sex = ko.observable();
-    self.Photo = ko.observable();
-    self.Function = ko.observable();
-    self.Category = ko.observable();
-    self.OrganisationCode = ko.observable();
-    self.Organisation = ko.observable();
-    self.OrganisationLong = ko.observable();
-    self.Url = ko.observable();
+    self.Id = ko.observable('');
+    self.Name = ko.observable('');
+    self.BirthDate = ko.observable('');
+    self.Sex = ko.observable('');
+    self.Photo = ko.observable('');
+    self.Function = ko.observable('');
+    self.Category = ko.observable('');
+    self.OrganisationCode = ko.observable('');
+    self.Organisation = ko.observable('');
+    self.OrganisationLong = ko.observable('');
+    self.Url = ko.observable('');
     self.Sports = ko.observableArray([]);
 
     //--- Page Events
