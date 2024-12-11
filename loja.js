@@ -146,3 +146,28 @@ function updateCartDetails() {
         });
     });
 }
+document.addEventListener('DOMContentLoaded', function () {
+    const checkoutForm = document.getElementById('checkoutForm');
+
+    checkoutForm.addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent form from submitting normally
+
+        const formData = new FormData(checkoutForm);
+        const customerData = {
+            firstName: formData.get('firstName'),
+            lastName: formData.get('lastName'),
+            email: formData.get('email'),
+            paymentMethod: formData.get('paymentMethod'),
+            termsAccepted: formData.has('terms'),
+        };
+
+        console.log("Customer Data:", customerData);
+        alert("Compra confirmada! Obrigado por sua compra.");
+
+        // Optionally reset the form or close the modal
+        checkoutForm.reset();
+        const checkoutModal = bootstrap.Modal.getInstance(document.getElementById('checkoutModal'));
+        if (checkoutModal) checkoutModal.hide();
+    });
+});
+

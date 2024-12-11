@@ -236,25 +236,61 @@
           <!-- Modal -->
             <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="checkoutModalLabel">Resumo do Checkout</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="checkoutModalLabel">Checkout</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="checkoutForm">
+                                <div class="mb-3">
+                                    <label for="firstName" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="lastName" class="form-label">Sobrenome</label>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">E-mail</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="paymentMethod" class="form-label">Método de pagamento</label>
+                                    <div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentMethod" id="visa" value="Visa" required>
+                                            <label class="form-check-label" for="visa">Visa Payment</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentMethod" id="paypal" value="Paypal">
+                                            <label class="form-check-label" for="paypal">Paypal</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentMethod" id="mastercard" value="MasterCard">
+                                            <label class="form-check-label" for="mastercard">Master Card</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentMethod" id="multibanco" value="Multibanco">
+                                            <label class="form-check-label" for="multibanco">Multibanco</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="terms" name="terms" required>
+                                        <label class="form-check-label" for="terms">Concordo com os Termos e Condições.</label>
+                                    </div>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-success">Confirmar Dados</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                    <p>Obrigado por utilizar nossa loja. Confira os detalhes da sua compra abaixo:</p>
-                    <div id="checkout-details">
-                        <!-- Informações do checkout serão preenchidas aqui dinamicamente -->
-                    </div>
-                    <p><strong>Total:</strong> <span id="checkout-total">0.00 €</span></p>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success">Confirmar Compra</button>
-                    </div>
-                </div>
                 </div>
             </div>
+
   
           
             <!--End of Work Area-->
