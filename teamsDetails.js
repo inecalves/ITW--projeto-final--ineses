@@ -15,11 +15,21 @@ var vm = function () {
     self.Sex = ko.observable('');
     self.Num_athletes = ko.observable('');
     self.Num_coaches = ko.observable('');
-    self.Athletes=ko.observableArray([]);
-    self.Coaches=ko.observableArray([]);
-    self.NOC=ko.observableArray([]);
-    self.Sport=ko.observableArray([]);
-    self.Medals=ko.observableArray([]);    //--- Page Events
+
+    
+    self.Athletes= ko.observableArray([]);
+    self.Coaches= ko.observableArray([]);
+    self.NOCId = ko.observable('');
+    self.NOCName = ko.observable('');
+    self.SportId= ko.observable('');
+    self.SportName= ko.observable('');
+    self.Medals= ko.observableArray([]);    
+    self.Medal_Type = ko.observable('');
+    self.Sport_name = ko.observable('');
+    self.Competition_name = ko.observable('');
+    self.Team_Name = ko.observable('');
+
+    //--- Page Events
     self.activate = function (id) {
         var composedUri = self.baseUri() + id;
         ajaxHelper(composedUri, 'GET').done(function (data) {
@@ -30,10 +40,31 @@ var vm = function () {
             self.Sex(data.Sex);
             self.Num_athletes(data.Num_Athletes);
             self.Num_coaches(data.Num_Coaches);
+
+            for (let idx = 0; idx < data.Medals.length; idx++) {
+                medal = data.Medals[idx]
+                switch(medal.Medal_Type) {
+                    case 1:
+                        data.Medals[idx].Medal_Type = "Gold Medal"
+                        break;
+                    case 2:
+                        data.Medals[idx].Medal_Type = "Silver Medal"
+                        break;
+                    case 3:
+                        data.Medals[idx].Medal_Type = "Bronze Medal"
+                        break;
+                    default:
+                        console.log("Valor desconhecido para Medal_Type");
+                }
+                
+            }
+
             self.Athletes(data.Athletes);
             self.Coaches(data.Coaches);
-            self.NOC(data.NOC);
-            self.Sport(data.Sport);
+            self.NOCId(data.NOC.Id);
+            self.NOCName(data.NOC.Name);
+            self.SportId(data.Sport.Id);
+            self.SportName(data.Sport.Name);
             self.Medals(data.Medals);
 
         });

@@ -17,7 +17,7 @@ var vm = function () {
     self.Country_code = ko.observable('');
     self.Country = ko.observable('');
     self.Url = ko.observable('');
-    self.Sports = ko.observable('');
+    self.Sports = ko.observableArray([]);
 
     //--- Page Events
     self.activate = function (id) {
@@ -35,7 +35,7 @@ var vm = function () {
             self.Country(data.Country);
             self.Url(data.Url);
             self.Sports(data.Sports);
-            self.SetFavourites();
+            //self.SetFavourites();
         });
     };
 

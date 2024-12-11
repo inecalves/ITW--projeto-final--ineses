@@ -207,7 +207,7 @@
                             <div class="accordion-body">
                                 <div data-bind="foreach: Teams">
                                     <ul>
-                                        <li data-bind="text:Id + ' - ' + Name"></li>
+                                        <li><a data-bind=" attr:{href: 'teamsDetails.html?id=' + Id}"><span data-bind="text:Name"></span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -223,7 +223,7 @@
                             <div class="accordion-body">
                                 <div data-bind="foreach: Technical_officials">
                                     <ul>
-                                        <li data-bind="text:Id + ' - ' + Name"></li>
+                                        <li><a data-bind=" attr:{href: 'technical_officialsDetails.html?id=' + Id}"><span data-bind="text:Name"></span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -239,7 +239,7 @@
                             <div class="accordion-body">
                                 <div data-bind="foreach: Venues">
                                     <ul>
-                                        <li data-bind="text:Id + ' - ' + Name"></li>
+                                        <li><a data-bind=" attr:{href: 'venuesDetails.html?id=' + Id}"><span data-bind="text:Name"></span></a></li>
                                     </ul>
                                 </div>
                             </div>

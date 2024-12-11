@@ -103,12 +103,14 @@ var vm = function () {
         });
     }
 
+
+    //Barra de pesquisa
     $(document).ready(function () {
 
         const api_url = "http://192.168.160.58/Paris2024/api/Athletes/Search";
 
         $("#procura").autocomplete({
-            minLength: 2,
+            minLength: 1,
             source: function (request, response) {
                 $.ajax({
                     type: "GET",
