@@ -49,3 +49,20 @@ body {
     flex: 1;
 }
 
+.color-selector {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.color-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; /* Forma de círculo */
+    cursor: pointer; /* Indicador de que é clicável */
+    transition: transform 0.3s ease; /* Para dar um efeito visual */
+}
+
+.color-circle:hover {
+    transform: scale(1.2); /* Aumenta um pouco quando o usuário passa o mouse */
+}
