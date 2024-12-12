@@ -108,6 +108,38 @@
         footer .navbar-nav .nav-item {
             margin-left: 10px;
         }
+        /* Estilo padrão (modo claro) já existente */
+
+        /* Estilo para modo escuro */
+        body[data-bs-theme="dark"] {
+            background-color: #121212; /* Fundo escuro */
+            color: #ffffff; /* Texto claro */
+        }
+
+        body[data-bs-theme="dark"] .quiz-container {
+            background-color: #1e1e1e; /* Fundo escuro para o quiz */
+            color: #ffffff; /* Texto claro */
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        body[data-bs-theme="dark"] .options li {
+            background-color: #2a2a2a; /* Fundo escuro para opções */
+            color: #ffffff; /* Texto claro */
+            border: 1px solid #444; /* Borda visível no escuro */
+        }
+
+        body[data-bs-theme="dark"] .options li:hover {
+            background-color: #3a3a3a; /* Fundo mais claro ao passar o mouse */
+        }
+
+        body[data-bs-theme="dark"] footer {
+            background-color: #1e1e1e; /* Fundo escuro para o rodapé */
+            color: #ffffff; /* Texto claro */
+        }
+        body[data-bs-theme="dark"] .final-result {
+            color: #ffffff; /* Deixa o texto branco no modo escuro */
+        }
+
     </style>
 </head>
 <body>
@@ -188,20 +220,17 @@
                     <li class="navbar-text hstack mx-2">
                         <div class="vr"></div>
                     </li>
-                    <!-- Botões de Modo Claro/Escuro -->
                     <li class="nav-item">
                         <div class="nav-link" id="lightMode" type="button" data-bs-theme-value="light" aria-pressed="false">
                             <i class="theme-icon fa fa-sun-o" title="Modo claro"></i>
                         </div>
-                    </li>
-                    <li class="navbar-text hstack">
-                        <div class="vr"></div>
                     </li>
                     <li class="nav-item">
                         <div class="nav-link" id="darkMode" type="button" data-bs-theme-value="dark" aria-pressed="false">
                             <i class="theme-icon fa fa-moon-o" title="Modo escuro"></i>
                         </div>
                     </li>
+                    
                 </ul>
             </div>
         </div>
