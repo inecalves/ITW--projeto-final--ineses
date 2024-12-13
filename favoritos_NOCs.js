@@ -4,10 +4,10 @@ var vm = function () {
     //---Variáveis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/NOCs');
-    self.displayName = 'Paris2024 NOCs List';
+    self.displayName = 'Paris 2024 NOCs Favorite List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
-    self.NOCs = ko.observableArray([]);
+    self.Nocs = ko.observableArray([]);
     self.currentPage = ko.observable(1);
     self.pagesize = ko.observable(20);
     self.totalRecords = ko.observable(50);
@@ -55,7 +55,7 @@ var vm = function () {
             self.hasPrevious(data.HasPrevious);
             self.pagesize(data.PageSize)
             self.totalPages(data.TotalPages);
-            self.totalRecords(data.TotalNOCs);
+            self.totalRecords(data.TotalAhletes);
             self.SetFavourites();
         });
     };
@@ -77,58 +77,43 @@ var vm = function () {
         });
     }
 
+    //Favoritos
 
-    //Barra de pesquisa
     $(document).ready(function () {
 
-        const api_url = "http://192.168.160.58/Paris2024/api/NOCs/Search";
-
-        $("#procura").autocomplete({
-            minLength: 1,
-            source: function (request, response) {
-                $.ajax({
-                    type: "GET",
-                    url: api_url,
-                    data: {
-                        q: $('#procura').val().toLowerCase()
-                    },
-                    success: function (data) {
-                        if (!data.length) {
-                            var result = [{
-                                label: 'Sem resultados',
-                                value: response.term,
-                            }];
-                            response(result);
-                        } else {
-                            var nData = $.map(data.slice(0, 5), function (value, key) {
-                                return {
-                                    label: value.Name,
-                                    value: value.Id,
-                                }
-                            });
-                            results = $.ui.autocomplete.filter(nData, request.term);
-                            response(results);
-                        }
-                    },
-                    error: function () {
-                        alert("error!");
-                    }
-                })
-            },
-            select: function (event, ui) {
-                event.preventDefault();
-                $("#procura").val(ui.item.label);
-                window.location.href = "./NOCsDetails.html?id=" + ui.item.value;
-
-
-                // h.loadTitleModal(ui.item.value)
-            },
-            focus: function (event, ui) {
-                $("#procura").val(ui.item.label);
-            }
-        });
-    });
-
+        let fav5 = JSON.parse(localStorage.fav5 || '[]');
+    
+        console.log(fav5);
+    
+    
+        for (const Id of fav5) {
+            console.log(Id);
+    
+            ajaxHelper('http://192.168.160.58/Paris2024/api/NOCs/' + Id, 'GET').done(function (data) {
+                console.log(data)
+                if (localStorage.fav.length != 0) {
+                    $("#table-favourites").show();
+                    $('#noadd').hide();
+                    $('#nofav5').hide();
+                    $("#table-favourites").append(
+                        `<tr id="fav5-${Id}">
+                            <td class="align-middle">${Id}</td>
+                            <td class="align-middle">${data.Name}</td>
+                            <td class="align-middle"><img style="height: 100px; width: 84px;" src="${data.Photo}"></td>
+                            <td class="text-end align-middle">
+                                <a class="btn btn-default btn-light btn-xs" href="./NOCsDetails.html?id=${Id}"><i class="fa fa-eye" title="Show details"></i></a>
+                                <a class="btn btn-default btn-sm btn-favourite" onclick="removeFav(${Id})"><i class="fa fa-heart text-danger" title="Selecione para remover dos favoritos"></i></a>
+                            </td>
+                        </tr>`
+                    )
+    
+                }
+            });
+            sleep(50);
+        }
+    
+        hideLoading();
+    })
 
     function sleep(milliseconds) {
         const start = Date.now();
@@ -162,9 +147,10 @@ var vm = function () {
         }
     };
 
-
-    //Favoritos
     self.favourites = ko.observableArray([]);   
+
+
+
         self.toggleFavourite = function (id) {
         if (self.favourites.indexOf(id) == -1) {
             self.favourites.push(id);
@@ -174,7 +160,6 @@ var vm = function () {
         }
         localStorage.setItem("fav5", JSON.stringify(self.favourites()));
     };
-
     self.SetFavourites = function () {
         let storage;
         try {
@@ -188,6 +173,13 @@ var vm = function () {
         }
     }
 
+
+    function alterarURL() {
+        console.log("URL antes da alteração:", url);
+        api_url = "http://192.168.160.58/Paris2024/NOCs"; // Altere o valor aqui
+        console.log("URL após a alteração:", url);
+    }
+
     //--- start ....
     showLoading();
     var pg = getUrlParameter('page');
@@ -198,7 +190,7 @@ var vm = function () {
         self.activate(pg);
     }
     console.log("VM initialized!");
-};
+    };
 
 $(document).ready(function () {
     console.log("ready!");
