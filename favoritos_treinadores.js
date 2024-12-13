@@ -103,7 +103,7 @@ var vm = function () {
                             <td class="align-middle">${data.Country}</td>
                             <td class="align-middle"><img style="height: 100px; width: 84px;" src="${data.Photo}"></td>
                             <td class="text-end align-middle">
-                                <a class="btn btn-default btn-light btn-xs" href="./athleteDetails.html?id=${Id}"><i class="fa fa-eye" title="Show details"></i></a>
+                                <a class="btn btn-default btn-light btn-xs" href="./coachesDetails.html?id=${Id}"><i class="fa fa-eye" title="Show details"></i></a>
                                 <a class="btn btn-default btn-sm btn-favourite" onclick="removeFav(${Id})"><i class="fa fa-heart text-danger" title="Selecione para remover dos favoritos"></i></a>
                             </td>
                         </tr>`

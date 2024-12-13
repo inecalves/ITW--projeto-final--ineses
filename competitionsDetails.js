@@ -4,32 +4,30 @@ var vm = function () {
     
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Competitions');
+    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/Competitions');
     self.displayName = 'Competitions Details';
     self.error = ko.observable('');
-    self.passingMessage = ko.observable('');
-
-    //--- Data Record
-    self.SportId = ko.observable('');
-    self.Name = ko.observable('');
-    self.Tag = ko.observable('');
-    self.Photo = ko.observable('');
-    self.Athletes = ko.observableArray([]);
-    self.SportInfo = ko.observableArray([]);
-
+    self.details = ko.observable({ SportInfo: {}, Athletes: [] });
+    
     
     //--- Page Events
-    self.activate = function (sportId, Name) {
-        var composedUri = self.baseUri() + '?sportId=' + sportId + '&name=' + Name;
+    self.activate = function (sportId, name) {
+        console.log('CALL: getCompetitionDetails...');
+        if (!sportId) {
+            console.error('Invalid sportId:', sportId);
+            self.error('Invalid sportId provided.');
+            return;
+        }
+
+        if (!name) {
+            console.warn('Name parameter is missing. Defaulting to empty.');
+        }
+
+        var composedUri = `${self.baseUri()}?sportId=${sportId}&name=${encodeURIComponent(name || '')}`;
+        console.log('Composed URI:', composedUri);
         ajaxHelper(composedUri, 'GET').done(function (data) {
-            console.log(data);
-            hideLoading();
-            self.SportId(data.SportId);
-            self.Name(data.Name);
-            self.Tag(data.Tag);
-            self.Photo(data.Photo);
-            self.Athletes(data.Athletes);
-            self.SportInfo(data.SportInfo);
+            console.log("API Response Data:", data);
+            self.details(data);
         });
     };
 
@@ -69,25 +67,40 @@ var vm = function () {
             sParameterName,
             i;
 
-        for (i = 0; i < sURLVariables.length; i++) {
+        console.log('Extracting parameters from URL:', sPageURL);
+        for (var i = 0; i < sURLVariables.length; i++) {
             sParameterName = sURLVariables[i].split('=');
-
             if (sParameterName[0] === sParam) {
-                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                return sParameterName[1] === undefined ? null : decodeURIComponent(sParameterName[1]);
             }
         }
+        console.warn(`Parameter ${sParam} not found in URL.`);
+        return null;
     };
 
-    //--- start ....  
-    showLoading();
-    var pg = getUrlParameter('id');
-    console.log(pg);
-    if (pg == undefined)
-        self.activate(1);
-    else {
-        self.activate(pg);
+
+    var sportId = getUrlParameter('sportId');
+    var Name = getUrlParameter('Name');
+
+    if (sportId) {
+        console.log('Parameters found:', { sportId, Name });
+        self.activate(sportId, Name);
+    } else {
+        console.error('Parameters missing:', { sportId, Name });
+        self.error('Missing sportId parameter in the URL.');
     }
-    console.log("VM initialized!");
+    
+
+    //--- start ....  
+    //showLoading();
+    //var pg = getUrlParameter('id');
+    //console.log(pg);
+    //if (pg == undefined)
+        //self.activate(1);
+    //else {
+        //self.activate(pg);
+    //}
+    //console.log("VM initialized!");
 };
 
 $(document).ready(function () {

@@ -3,11 +3,11 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/Competitions');
-    self.displayName = 'Paris2024 Competitions List';
+    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/Sports');
+    self.displayName = 'Paris 2024 Sports List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
-    self.competitions = ko.observableArray([]);
+    self.Sports = ko.observableArray([]);
     self.currentPage = ko.observable(1);
     self.pagesize = ko.observable(20);
     self.totalRecords = ko.observable(50);
@@ -44,18 +44,19 @@ var vm = function () {
 
     //--- Page Events
     self.activate = function (id) {
-        console.log('CALL: getCompetitions...');
+        console.log('CALL: getSports...');
         var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
             hideLoading();
-            self.competitions(data.Competitions);
+            self.Sports(data.Sports);
             self.currentPage(data.CurrentPage);
             self.hasNext(data.HasNext);
             self.hasPrevious(data.HasPrevious);
             self.pagesize(data.PageSize)
             self.totalPages(data.TotalPages);
-            self.totalRecords(data.TotalCompetitions);
+            self.totalRecords(data.TotalAhletes);
+            self.SetFavourites();
         });
     };
 
@@ -76,10 +77,47 @@ var vm = function () {
         });
     }
 
+    $(document).ready(function () {
+
+        let fav4 = JSON.parse(localStorage.fav4 || '[]');
+    
+        console.log(fav4);
+    
+    
+        for (const Id of fav4) {
+            console.log(Id);
+    
+            ajaxHelper('http://192.168.160.58/Paris2024/api/Sports/' + Id, 'GET').done(function (data) {
+                console.log(data)
+                if (localStorage.fav4.length != 0) {
+                    $("#table-favourites").show();
+                    $('#noadd').hide();
+                    $('#nofav4').hide();
+                    $("#table-favourites").append(
+                        `<tr id="fav4-${Id}">
+                            <td class="align-middle">${Id}</td>
+                            <td class="align-middle">${data.Name}</td>
+                            <td class="align-middle"><img style="height: 100px; width: 100px;" src="${data.Pictogram}"></td>
+                            <td class="text-end align-middle">
+                            <a class="btn btn-default btn-light btn-xs" href="./sportsDetails.html?id=${Id}"><i class="fa fa-eye" title="Show details"></i></a>
+                            <a class="btn btn-default btn-sm btn-favourite" onclick="removeFav(${Id})"><i class="fa fa-heart text-danger" title="Selecione para remover dos favoritos"></i></a>
+                            </td>
+                        </tr>`
+                    )
+    
+                }
+            });
+            sleep(50);
+        }
+    
+        hideLoading();
+    })
+
     function sleep(milliseconds) {
         const start = Date.now();
         while (Date.now() - start < milliseconds);
     }
+    
 
     function showLoading() {
         $("#myModal").modal('show', {
@@ -108,6 +146,39 @@ var vm = function () {
         }
     };
 
+    self.favourites = ko.observableArray([]);   
+
+
+
+        self.toggleFavourite = function (id) {
+        if (self.favourites.indexOf(id) == -1) {
+            self.favourites.push(id);
+        }
+        else {
+            self.favourites.remove(id);
+        }
+        localStorage.setItem("fav", JSON.stringify(self.favourites()));
+    };
+    self.SetFavourites = function () {
+        let storage;
+        try {
+            storage = JSON.parse(localStorage.getItem("fav"));
+        }
+        catch (e) {
+            ;
+        }
+        if (Array.isArray(storage)) {
+            self.favourites(storage);
+        }
+    }
+
+
+    function alterarURL() {
+        console.log("URL antes da alteração:", url);
+        api_url = "http://192.168.160.58/Paris2024/Sports"; // Altere o valor aqui
+        console.log("URL após a alteração:", url);
+    }
+
     //--- start ....
     showLoading();
     var pg = getUrlParameter('page');
@@ -118,7 +189,7 @@ var vm = function () {
         self.activate(pg);
     }
     console.log("VM initialized!");
-};
+    };
 
 $(document).ready(function () {
     console.log("ready!");

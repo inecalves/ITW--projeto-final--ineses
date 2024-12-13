@@ -8,6 +8,7 @@ var vm = function () {
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.sports = ko.observableArray([]);
+    self.favourites = ko.observableArray([]);
     self.currentPage = ko.observable(1);
     self.pagesize = ko.observable(20);
     self.totalRecords = ko.observable(50);
@@ -51,7 +52,7 @@ var vm = function () {
             hideLoading();
             self.sports(data);
             console.log(data[0].Pictogram);
-            //self.SetFavourites();
+            self.SetFavourites();
         });
     };
     //--- Internal functions
@@ -154,6 +155,33 @@ var vm = function () {
             }
         }
     };
+
+
+    //Favoritos
+    self.favourites = ko.observableArray([]);   
+        self.toggleFavourite = function (id) {
+        if (self.favourites.indexOf(id) == -1) {
+            self.favourites.push(id);
+        }
+        else {
+            self.favourites.remove(id);
+        }
+        localStorage.setItem("fav4", JSON.stringify(self.favourites()));
+    };
+
+    self.SetFavourites = function () {
+        let storage;
+        try {
+            storage = JSON.parse(localStorage.getItem("fav4"));
+        }
+        catch (e) {
+            ;
+        }
+        if (Array.isArray(storage)) {
+            self.favourites(storage);
+        }
+    }
+
 
     //--- start ....
     showLoading();
