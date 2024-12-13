@@ -78,56 +78,45 @@ var vm = function () {
     }
 
 
-    //Barra de pesquisa
+    //Favoritos
     $(document).ready(function () {
 
-        const api_url = "http://192.168.160.58/Paris2024/api/Coaches/Search";
+        let fav2 = JSON.parse(localStorage.fav2 || '[]');
+    
+        console.log(fav2);
+    
+    
+        for (const Id of fav2) {
+            console.log(Id);
+    
+            ajaxHelper('http://192.168.160.58/Paris2024/api/Coaches/' + Id, 'GET').done(function (data) {
+                console.log(data)
+                if (localStorage.fav2.length != 0) {
+                    $("#table-favourites").show();
+                    $('#noadd').hide();
+                    $('#nofav2').hide();
+                    $("#table-favourites").append(
+                        `<tr id="fav2-${Id}">
+                            <td class="align-middle">${Id}</td>
+                            <td class="align-middle">${data.Name}</td>
+                            <td class="align-middle">${data.Sex}</td>
+                            <td class="align-middle">${data.Country}</td>
+                            <td class="align-middle"><img style="height: 100px; width: 84px;" src="${data.Photo}"></td>
+                            <td class="text-end align-middle">
+                                <a class="btn btn-default btn-light btn-xs" href="./athleteDetails.html?id=${Id}"><i class="fa fa-eye" title="Show details"></i></a>
+                                <a class="btn btn-default btn-sm btn-favourite" onclick="removeFav(${Id})"><i class="fa fa-heart text-danger" title="Selecione para remover dos favoritos"></i></a>
+                            </td>
+                        </tr>`
+                    )
+    
+                }
+            });
+            sleep(50);
+        }
+    
+        hideLoading();
+    })
 
-        $("#procura").autocomplete({
-            minLength: 1,
-            source: function (request, response) {
-                $.ajax({
-                    type: "GET",
-                    url: api_url,
-                    data: {
-                        q: $('#procura').val().toLowerCase()
-                    },
-                    success: function (data) {
-                        if (!data.length) {
-                            var result = [{
-                                label: 'Sem resultados',
-                                value: response.term,
-                            }];
-                            response(result);
-                        } else {
-                            var nData = $.map(data.slice(0, 5), function (value, key) {
-                                return {
-                                    label: value.Name,
-                                    value: value.Id,
-                                }
-                            });
-                            results = $.ui.autocomplete.filter(nData, request.term);
-                            response(results);
-                        }
-                    },
-                    error: function () {
-                        alert("error!");
-                    }
-                })
-            },
-            select: function (event, ui) {
-                event.preventDefault();
-                $("#procura").val(ui.item.label);
-                window.location.href = "./coachesDetails.html?id=" + ui.item.value;
-
-
-                // h.loadTitleModal(ui.item.value)
-            },
-            focus: function (event, ui) {
-                $("#procura").val(ui.item.label);
-            }
-        });
-    });
 
     function sleep(milliseconds) {
         const start = Date.now();

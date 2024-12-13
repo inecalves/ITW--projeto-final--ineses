@@ -3,11 +3,11 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/Coaches');
-    self.displayName = 'Paris2024 Coaches List';
+    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/athletes');
+    self.displayName = 'Paris 2024 Athletes List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
-    self.coaches = ko.observableArray([]);
+    self.athletes = ko.observableArray([]);
     self.currentPage = ko.observable(1);
     self.pagesize = ko.observable(20);
     self.totalRecords = ko.observable(50);
@@ -44,19 +44,20 @@ var vm = function () {
 
     //--- Page Events
     self.activate = function (id) {
-        console.log('CALL: getCoaches...');
+        console.log('CALL: getAthletes...');
         var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
             hideLoading();
-            self.coaches(data.Coaches);
+            self.athletes(data.Athletes);
             self.currentPage(data.CurrentPage);
             self.hasNext(data.HasNext);
             self.hasPrevious(data.HasPrevious);
             self.pagesize(data.PageSize)
             self.totalPages(data.TotalPages);
-            self.totalRecords(data.TotalCoaches);
+            self.totalRecords(data.TotalAhletes);
             self.SetFavourites();
+            //self.SetFavourites();
         });
     };
 
@@ -77,57 +78,45 @@ var vm = function () {
         });
     }
 
+    //Favoritos
 
-    //Barra de pesquisa
     $(document).ready(function () {
 
-        const api_url = "http://192.168.160.58/Paris2024/api/Coaches/Search";
-
-        $("#procura").autocomplete({
-            minLength: 1,
-            source: function (request, response) {
-                $.ajax({
-                    type: "GET",
-                    url: api_url,
-                    data: {
-                        q: $('#procura').val().toLowerCase()
-                    },
-                    success: function (data) {
-                        if (!data.length) {
-                            var result = [{
-                                label: 'Sem resultados',
-                                value: response.term,
-                            }];
-                            response(result);
-                        } else {
-                            var nData = $.map(data.slice(0, 5), function (value, key) {
-                                return {
-                                    label: value.Name,
-                                    value: value.Id,
-                                }
-                            });
-                            results = $.ui.autocomplete.filter(nData, request.term);
-                            response(results);
-                        }
-                    },
-                    error: function () {
-                        alert("error!");
-                    }
-                })
-            },
-            select: function (event, ui) {
-                event.preventDefault();
-                $("#procura").val(ui.item.label);
-                window.location.href = "./coachesDetails.html?id=" + ui.item.value;
-
-
-                // h.loadTitleModal(ui.item.value)
-            },
-            focus: function (event, ui) {
-                $("#procura").val(ui.item.label);
-            }
-        });
-    });
+        let fav = JSON.parse(localStorage.fav || '[]');
+    
+        console.log(fav);
+    
+    
+        for (const Id of fav) {
+            console.log(Id);
+    
+            ajaxHelper('http://192.168.160.58/Paris2024/api/Athletes/' + Id, 'GET').done(function (data) {
+                console.log(data)
+                if (localStorage.fav.length != 0) {
+                    $("#table-favourites").show();
+                    $('#noadd').hide();
+                    $('#nofav').hide();
+                    $("#table-favourites").append(
+                        `<tr id="fav-${Id}">
+                            <td class="align-middle">${Id}</td>
+                            <td class="align-middle">${data.Name}</td>
+                            <td class="align-middle">${data.Sex}</td>
+                            <td class="align-middle">${data.BirthCountry}</td>
+                            <td class="align-middle"><img style="height: 100px; width: 84px;" src="${data.Photo}"></td>
+                            <td class="text-end align-middle">
+                                <a class="btn btn-default btn-light btn-xs" href="./athleteDetails.html?id=${Id}"><i class="fa fa-eye" title="Show details"></i></a>
+                                <a class="btn btn-default btn-sm btn-favourite" onclick="removeFav(${Id})"><i class="fa fa-heart text-danger" title="Selecione para remover dos favoritos"></i></a>
+                            </td>
+                        </tr>`
+                    )
+    
+                }
+            });
+            sleep(50);
+        }
+    
+        hideLoading();
+    })
 
     function sleep(milliseconds) {
         const start = Date.now();
@@ -161,9 +150,10 @@ var vm = function () {
         }
     };
 
-
-    //Favoritos
     self.favourites = ko.observableArray([]);   
+
+
+
         self.toggleFavourite = function (id) {
         if (self.favourites.indexOf(id) == -1) {
             self.favourites.push(id);
@@ -171,13 +161,12 @@ var vm = function () {
         else {
             self.favourites.remove(id);
         }
-        localStorage.setItem("fav2", JSON.stringify(self.favourites()));
+        localStorage.setItem("fav", JSON.stringify(self.favourites()));
     };
-
     self.SetFavourites = function () {
         let storage;
         try {
-            storage = JSON.parse(localStorage.getItem("fav2"));
+            storage = JSON.parse(localStorage.getItem("fav"));
         }
         catch (e) {
             ;
@@ -187,6 +176,12 @@ var vm = function () {
         }
     }
 
+
+    function alterarURL() {
+        console.log("URL antes da alteração:", url);
+        api_url = "http://192.168.160.58/Paris2024/Athletes"; // Altere o valor aqui
+        console.log("URL após a alteração:", url);
+    }
 
     //--- start ....
     showLoading();
@@ -198,7 +193,7 @@ var vm = function () {
         self.activate(pg);
     }
     console.log("VM initialized!");
-};
+    };
 
 $(document).ready(function () {
     console.log("ready!");
