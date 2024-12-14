@@ -10,7 +10,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
     <link href="lib/font-awesome/dist/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <link href="style.css" rel="stylesheet">
+    <style>
+        #map1 { 
+            height: 380px; 
+            width: 520px;
+        }
+
+        #map3 { 
+            height: 380px; 
+            width: 525px;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-light bg-body-tertiary fixed-top">
@@ -147,8 +159,28 @@
         <p>Jogos Olímpicos de Verão de 2024, oficialmente denominados Jogos da XXXIII Olimpíada e comumente conhecidos como Paris 2024, foi um evento multiesportivo internacional realizado de 26 de julho (data da cerimônia de abertura) a 11 de agosto de 2024 na França, com Paris como principal cidade anfitriã e 16 outras cidades espalhadas pela França Metropolitana, além de uma subsede no Taiti — uma ilha dentro do país ultramarino francês e da coletividade ultramarina da Polinésia Francesa.</p>
         <p>A cidade de Paris foi escolhida como sede na 131.ª Sessão do Comitê Olímpico Internacional (COI) em Lima, Peru, em 13 de setembro de 2017. Após múltiplas desistências que deixaram apenas Paris e Los Angeles na disputa, o COI aprovou um processo para defini-las como locais de realização dos Jogos de 2024 e 2028 respectivamente. Tendo anteriormente sediado os Jogos de 1900 e de 1924, Paris torna-se a segunda cidade, depois de Londres (que foi a anfitriã em 1908, 1948 e 2012), a sediar três vezes os Jogos Olímpicos de Verão. Paris 2024 também marca o centenário de Paris 1924, e estes Jogos Olímpicos são os sextos organizados pela França (três de verão e três de inverno), e os primeiros Jogos Olímpicos franceses desde os Jogos Olímpicos de Inverno de 1992 em Albertville. Em 2024 os Jogos Olímpicos de Verão retornam ao tradicional ciclo olímpico de quatro anos, já que os Jogos de 2020, em Tóquio, foram adiados em um ano devido à pandemia de COVID-19</p>
         <p>Os Jogos de 2024 contam com a estreia do breakdance como evento olímpico, e serão os últimos Jogos Olímpicos realizados durante a gestão do COI pelo presidente Thomas Bach. Os Jogos tinham a expectativa de serem os primeiros a contar com número idêntico de atletas entre homens e mulheres, mas após a lista final de inscritos os homens devem contar com uma quantidade superior de competidores. As Olimpíadas de Paris custaram cerca de 9 bilhões de euros.</p>
+        <hr />
+        <!-- <div class="row">
+            <div class="col-4 text-center">
+
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4 text-center">Mapa de cidades de interesse turístico de França</div>
+        </div> -->
+        <br>
+        <div class="row">
+            <div class="col">
+                <h5>Mapa dos Estádios</h5>
+                <div id="map1"></div>  <!--EStádios-->
+            </div>
+            <div class="col">
+                <h5>Mapa de cidades com interesse turístico de França</h5>
+                <div id="map3"></div>  <!--Cidades de França-->
+            </div>
+        </div>
     </div>
     <br>
+
     <!--End of Work Area-->
     <nav class="navbar navbar-light bg-body-tertiary sticky-bottom">
         <div class="container small">
@@ -166,6 +198,9 @@
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"
     integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA="
     crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+
     <script src="darkmode.js"></script>
+    <script src="mapas.js"></script>
 </body>
 </html>
