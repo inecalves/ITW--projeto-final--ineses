@@ -3,8 +3,8 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/Athletes');
-    self.displayName = 'Lista de Atletas Paris2024';
+    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/athletes');
+    self.displayName = 'Paris 2024 Athletes List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.athletes = ko.observableArray([]);
@@ -57,6 +57,7 @@ var vm = function () {
             self.totalPages(data.TotalPages);
             self.totalRecords(data.TotalAhletes);
             self.SetFavourites();
+            //self.SetFavourites();
         });
     };
 
@@ -77,14 +78,12 @@ var vm = function () {
         });
     }
 
-
-    //Barra de pesquisa
     $(document).ready(function () {
 
         const api_url = "http://192.168.160.58/Paris2024/api/Athletes/Search";
 
         $("#procura").autocomplete({
-            minLength: 1,
+            minLength: 2,
             source: function (request, response) {
                 $.ajax({
                     type: "GET",
@@ -100,7 +99,7 @@ var vm = function () {
                             }];
                             response(result);
                         } else {
-                            var nData = $.map(data.slice(0, 5), function (value, key) {
+                            var nData = $.map(data.slice(0, 3), function (value, key) {
                                 return {
                                     label: value.Name,
                                     value: value.Id,
@@ -118,7 +117,7 @@ var vm = function () {
             select: function (event, ui) {
                 event.preventDefault();
                 $("#procura").val(ui.item.label);
-                window.location.href = "./athletesDetails.html?id=" + ui.item.value;
+                window.location.href = "./athleteDetails.html?id=" + ui.item.value;
 
 
                 // h.loadTitleModal(ui.item.value)
@@ -161,9 +160,10 @@ var vm = function () {
         }
     };
 
-
-    //Favoritos
     self.favourites = ko.observableArray([]);   
+
+
+
         self.toggleFavourite = function (id) {
         if (self.favourites.indexOf(id) == -1) {
             self.favourites.push(id);
@@ -173,7 +173,6 @@ var vm = function () {
         }
         localStorage.setItem("fav", JSON.stringify(self.favourites()));
     };
-
     self.SetFavourites = function () {
         let storage;
         try {
@@ -187,6 +186,8 @@ var vm = function () {
         }
     }
 
+
+
     //--- start ....
     showLoading();
     var pg = getUrlParameter('page');
@@ -197,7 +198,7 @@ var vm = function () {
         self.activate(pg);
     }
     console.log("VM initialized!");
-};
+    };
 
 $(document).ready(function () {
     console.log("ready!");
@@ -208,7 +209,6 @@ $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
 })
 
-
 const currentQueryString = new URLSearchParams(window.location.search);
 
     
@@ -216,4 +216,4 @@ const currentQueryString = new URLSearchParams(window.location.search);
     const currentPageSize = currentQueryString.get('pagesize') || 20; 
 
     const redirectToAthletes = document.getElementById('redirectToAthletes');
-    redirectToAthletes.href = `athletes_faces.html?page=${currentPage}&pagesize=${currentPageSize}`;
+    redirectToAthletes.href = `athletes.html?page=${currentPage}&pagesize=${currentPageSize}`;

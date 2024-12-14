@@ -59,17 +59,14 @@ body[data-bs-theme="dark"] .navbar-nav .nav-link:hover {
                 border: solid 1px #7aa1c0!Important;
             }
 
-            
+      
+/*Faz zoom quando passar o rato por cima dos cards*/            
 .card:hover {
     transform: scale(1.1);
     }
     .card {
     transition: transform 0.5s;
     }
-
-
-
-
 
 
 /* parte do professor */
