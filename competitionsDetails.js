@@ -28,8 +28,10 @@ var vm = function () {
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log("API Response Data:", data);
             self.details(data);
+            console.log(details, data);
         });
     };
+
 
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
@@ -48,24 +50,10 @@ var vm = function () {
         });
     }
 
-    function showLoading() {
-        $('#myModal').modal('show', {
-            backdrop: 'static',
-            keyboard: false
-        });
-    }
-
-    function hideLoading() {
-        $('#myModal').on('shown.bs.modal', function (e) {
-            $("#myModal").modal('hide');
-        })
-    }
-
     function getUrlParameter(sParam) {
         var sPageURL = window.location.search.substring(1),
             sURLVariables = sPageURL.split('&'),
-            sParameterName,
-            i;
+            sParameterName;
 
         console.log('Extracting parameters from URL:', sPageURL);
         for (var i = 0; i < sURLVariables.length; i++) {
@@ -76,38 +64,22 @@ var vm = function () {
         }
         console.warn(`Parameter ${sParam} not found in URL.`);
         return null;
-    };
-
+    }
 
     var sportId = getUrlParameter('sportId');
-    var Name = getUrlParameter('Name');
+    var name = getUrlParameter('name');
 
     if (sportId) {
-        console.log('Parameters found:', { sportId, Name });
-        self.activate(sportId, Name);
+        console.log('Parameters found:', { sportId, name });
+        self.activate(sportId, name);
     } else {
-        console.error('Parameters missing:', { sportId, Name });
+        console.error('Parameters missing:', { sportId, name });
         self.error('Missing sportId parameter in the URL.');
     }
     
-
-    //--- start ....  
-    //showLoading();
-    //var pg = getUrlParameter('id');
-    //console.log(pg);
-    //if (pg == undefined)
-        //self.activate(1);
-    //else {
-        //self.activate(pg);
-    //}
-    //console.log("VM initialized!");
 };
 
 $(document).ready(function () {
-    console.log("o bacalhau está no forno!");
+    console.log("Document ready, initializing ViewModel...");
     ko.applyBindings(new vm());
 });
-
-$(document).ajaxComplete(function (event, xhr, options) {
-    $("#myModal").modal('hide');
-})

@@ -154,7 +154,7 @@ var vm = function () {
             sURLVariables = sPageURL.split('&'),
             sParameterName,
             i;
-
+        console.log("sPageURL=", sPageURL);
         for (i = 0; i < sURLVariables.length; i++) {
             sParameterName = sURLVariables[i].split('=');
 
