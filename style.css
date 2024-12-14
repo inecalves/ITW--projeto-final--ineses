@@ -60,6 +60,17 @@ body[data-bs-theme="dark"] .navbar-nav .nav-link:hover {
             }
 
             
+.card:hover {
+    transform: scale(1.1);
+    }
+    .card {
+    transition: transform 0.5s;
+    }
+
+
+
+
+
 
 /* parte do professor */
 /* button default
