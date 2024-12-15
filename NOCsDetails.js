@@ -32,9 +32,10 @@ var vm = function () {
             self.Note(data.Note);
             self.Photo(data.Photo);
             self.Url(data.Url);
-            self.Athletes(data.Athletes)
-            self.Coaches(data.Coaches) 
-            self.Teams(data.Teams)   
+            self.Athletes(data.Athletes);
+            self.Coaches(data.Coaches); 
+            self.Teams(data.Teams);
+            self.Medals(data.Medals);   
         });
     };
 

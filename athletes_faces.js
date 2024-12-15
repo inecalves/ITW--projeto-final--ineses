@@ -83,7 +83,7 @@ var vm = function () {
         const api_url = "http://192.168.160.58/Paris2024/api/Athletes/Search";
 
         $("#procura").autocomplete({
-            minLength: 2,
+            minLength: 1,
             source: function (request, response) {
                 $.ajax({
                     type: "GET",
@@ -99,7 +99,7 @@ var vm = function () {
                             }];
                             response(result);
                         } else {
-                            var nData = $.map(data.slice(0, 3), function (value, key) {
+                            var nData = $.map(data.slice(0, 5), function (value, key) {
                                 return {
                                     label: value.Name,
                                     value: value.Id,

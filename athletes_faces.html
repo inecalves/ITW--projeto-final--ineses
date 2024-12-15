@@ -135,8 +135,8 @@
                 </a>
             </div>
             <p class=" col-3 mr-auto pt-2">
-                <span data-bind="html: 'Página: ' + currentPage() + ' de ' + totalPages()"></span><br />
-                <span data-bind="html: 'Atletas: '+ fromRecord() + '-' + toRecord() + ' de ' + totalRecords()"></span>
+                <span data-bind="html: 'Page: ' + currentPage() + ' de ' + totalPages()"></span><br />
+                <span data-bind="html: 'Athletes: '+ fromRecord() + '-' + toRecord() + ' de ' + totalRecords()"></span>
             </p>
             <div class="col-8 my-0 pt-3">
                 <ul class="pagination float-end">
@@ -161,38 +161,37 @@
         </div>
         <!-- /ko -->
 
-        <div class="row justify-content-center"> 
-                <div class="row g-2" data-bind="foreach: athletes">
-                    <div class="col-3">
-                        <div class="card m-3">
-                            <div class="card-header" style="text-align: center;">
-                                <h5 class="card-title text-truncate" data-bind="text:Name"></h5>
-                            </div>
-                            <div class="card-body">
-                                <!-- ko if: Photo -->
-                                    <a data-bind="attr: { href: Photo }">
-                                        <img class="img-thumbnail card-image" 
-                                            data-bind="attr: { src: Photo }"
-                                            style="width: 250px; height: 302px;" 
-                                            onerror="this.onerror=null;this.src='/Images/no-image.jpg';">
-                                    </a>
-                                <!-- /ko -->
-                                 <!-- Caso não exista a foto, exibe a imagem padrão -->
-                                <!-- ko ifnot: Photo -->
-                                    <img src="/Images/no-image.jpg" style="width: 250px; height:290px">
-                                <!-- /ko -->
-                                <hr>
-                                <div style="padding-left: 92px;">
-                                    <a class="btn btn-default btn-light btn-sm" data-bind="attr: { href:'./athletesDetails.html?id=' + Id }"><i class="fa fa-eye" title="Show details"></i></a>
-                                    <button class="btn btn-default btn-sm btn-favourite" data-bind="click: () => $parent.toggleFavourite(Id), attr : { 'id': 'favourite_' + Id }">
-                                        <i data-bind="attr: {'class': $parent.favourites().includes(Id)? 'fa fa-heart text-danger' : 'fa fa-heart-o'}" class="fa fa-heart-o" title="Selecione para adicionar aos favoritos"></i>
-                                    </button>
-                                </div>
+            <div class="row g-2 justify-content-center" data-bind="foreach: athletes">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card m-3">
+                        <div class="card-header" style="text-align: center;">
+                            <h5 class="card-title text-truncate" data-bind="text:Name"></h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- ko if: Photo -->
+                                <a data-bind="attr: { href: Photo }">
+                                    <img class="img-thumbnail card-image img-fluid" 
+                                        data-bind="attr: { src: Photo }"
+                                        style="max-height: 302px;" 
+                                        onerror="this.onerror=null;this.src='/Images/no-image.jpg';">
+                                </a>
+                            <!-- /ko -->
+                                <!-- Caso não exista a foto, exibe a imagem padrão -->
+                            <!-- ko ifnot: Photo -->
+                                <img src="/Images/no-image.jpg" style="width: 250px; height:290px">
+                            <!-- /ko -->
+                            <hr>
+                            <div style="padding-left: 92px;">
+                                <a class="btn btn-default btn-light btn-sm" data-bind="attr: { href:'./athletesDetails.html?id=' + Id }"><i class="fa fa-eye" title="Show details"></i></a>
+                                <button class="btn btn-default btn-sm btn-favourite" data-bind="click: () => $parent.toggleFavourite(Id), attr : { 'id': 'favourite_' + Id }">
+                                    <i data-bind="attr: {'class': $parent.favourites().includes(Id)? 'fa fa-heart text-danger' : 'fa fa-heart-o'}" class="fa fa-heart-o" title="Selecione para adicionar aos favoritos"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
-                </div>    
-            </div>
+                </div>
+            </div>    
+            
         </div>
 
     </div>
