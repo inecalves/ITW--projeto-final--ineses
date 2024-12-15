@@ -140,6 +140,15 @@
             color: #ffffff; /* Deixa o texto branco no modo escuro */
         }
 
+        /* Barra de progresso */
+        .progress {
+            height: 20px;
+        }
+
+        .progress-bar {
+            transition: width 0.4s ease;
+        }
+
     </style>
 </head>
 <body>
@@ -248,6 +257,9 @@
             <ul class="options" id="options-list">
                 <!-- Opções serão carregadas aqui -->
             </ul>
+        </div>
+        <div class="progress mb-4">
+            <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <div id="final-result" class="final-result"></div> <!-- Resultado final exibido aqui -->
 
@@ -365,6 +377,38 @@
                 }, 1000);
             }
         }
+
+
+        function updateProgressBar() {
+            const progressBar = document.getElementById('progress-bar');
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressBar.style.width = progress + '%';
+            progressBar.setAttribute('aria-valuenow', progress);
+        }
+
+        // Atualize a barra de progresso sempre que uma nova pergunta for exibida
+        function displayQuestion(index) {
+            const questionContainer = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-list');
+
+            // Atualizar barra de progresso
+            updateProgressBar();
+
+            // Limpa as opções anteriores
+            optionsContainer.innerHTML = '';
+
+            // Exibe a nova pergunta
+            questionContainer.textContent = questions[index].question;
+
+            // Exibe as opções
+            questions[index].options.forEach(option => {
+                const li = document.createElement('li');
+                li.textContent = option.text;
+                li.dataset.correct = option.correct;
+                optionsContainer.appendChild(li);
+            });
+        }
+
 
         function restartQuiz() {
             correctAnswersCount = 0;
