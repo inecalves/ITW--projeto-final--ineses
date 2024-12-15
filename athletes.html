@@ -130,7 +130,7 @@
         <!-- ko if:athletes().length > 0 -->
         <div class="row small">
             <div class="col-1">
-                <a id="redirectToAthletes" style="margin: 15px 15px;" class="btn btn-primary btn-sm small">
+                <a id="redirectToAthletes" style="margin: 15px 15px; background-color: #cecece;" class="btn btn-sm small">
                     <i class="fa fa-th"></i>
                 </a>
             </div>
@@ -180,8 +180,8 @@
                     <td class="align-middle" data-bind="text:BirthPlace"></td>
                     <td class="align-middle" data-bind="text:Sex"></td>
                     <td class="text-end">
-                        <a class="btn btn-default btn-light btn-sm" data-bind="attr: { href:'./athletesDetails.html?id=' + Id }"><i class="fa fa-eye" title="Show details"></i></a>
-                        <button class="btn btn-default  btn-sm btn-favourite" data-bind="click: () => $parent.toggleFavourite(Id), attr : { 'id': 'favourite_' + Id }">
+                        <a class="btn btn-default btn-light btn-xs" data-bind="attr: { href:'./athletesDetails.html?id=' + Id }"><i class="fa fa-eye" title="Show details"></i></a>
+                        <button class="btn btn-default  btn-xs btn-favourite" data-bind="click: () => $parent.toggleFavourite(Id), attr : { 'id': 'favourite_' + Id }">
                             <i data-bind="attr: {'class': $parent.favourites().includes(Id)? 'fa fa-heart text-danger' : 'fa fa-heart-o'}" class="fa fa-heart-o" title="Selecione para adicionar aos favoritos"></i>
                         </button>
                     </td>
