@@ -217,3 +217,67 @@ const currentQueryString = new URLSearchParams(window.location.search);
 
     const redirectToAthletes = document.getElementById('redirectToAthletes');
     redirectToAthletes.href = `athletes_faces.html?page=${currentPage}&pagesize=${currentPageSize}`;
+
+//grafico
+// Função para buscar estatísticas de gênero e criar o gráfico
+async function fetchGenderStatistics() {
+    const apiBaseURL = 'http://192.168.160.58/Paris2024/API/Athletes'; // URL da API
+    let maleCount = 0;
+    let femaleCount = 0;
+
+    try {
+        // Fazer a requisição inicial para obter o número total de páginas
+        const response = await fetch(`${apiBaseURL}?page=1&pageSize=50`);
+        if (!response.ok) {
+            throw new Error(`Erro na requisição inicial: ${response.status}`);
+        }
+        const data = await response.json();
+        const totalPages = data.TotalPages;
+
+        console.log("Total de páginas:", totalPages);
+
+        // Iterar por todas as páginas para coletar os dados
+        for (let page = 1; page <= totalPages; page++) {
+            try {
+                const pageResponse = await fetch(`${apiBaseURL}?page=${page}&pageSize=50`);
+                if (!pageResponse.ok) {
+                    console.warn(`Erro ao buscar a página ${page}: ${pageResponse.status}`);
+                    continue; // Pular página em caso de erro
+                }
+                const pageData = await pageResponse.json();
+
+                // Contar os atletas masculinos e femininos
+                pageData.Athletes.forEach(athlete => {
+                    if (athlete.Sex.toLowerCase() === 'male') { // Confirmando case-insensitive
+                        maleCount++;
+                    } else if (athlete.Sex.toLowerCase() === 'female') {
+                        femaleCount++;
+                    }
+                });
+
+                console.log(`Página ${page} processada.`);
+            } catch (pageError) {
+                console.warn(`Erro ao processar a página ${page}:`, pageError);
+                continue; // Continuar para a próxima página
+            }
+        }
+
+        // Calcular percentagens
+        const total = maleCount + femaleCount;
+        if (total === 0) {
+            throw new Error("Nenhum atleta encontrado para calcular as estatísticas.");
+        }
+        const malePercentage = ((maleCount / total) * 100).toFixed(2);
+        const femalePercentage = ((femaleCount / total) * 100).toFixed(2);
+
+        console.log("Percentagem Masculina:", malePercentage, "%");
+        console.log("Percentagem Feminina:", femalePercentage, "%");
+
+        // Criar o gráfico com os dados
+        createGenderChart(malePercentage, femalePercentage);
+
+    } catch (error) {
+        console.error('Erro ao buscar estatísticas de gênero:', error);
+    }
+}
+
