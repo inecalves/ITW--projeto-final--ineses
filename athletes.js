@@ -4,7 +4,7 @@ var vm = function () {
     //---Variáveis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/Athletes');
-    self.displayName = 'Lista de Atletas Paris2024';
+    self.displayName = 'Paris2024 Athletes List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.athletes = ko.observableArray([]);
