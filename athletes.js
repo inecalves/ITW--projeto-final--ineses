@@ -280,4 +280,3 @@ async function fetchGenderStatistics() {
         console.error('Erro ao buscar estatísticas de gênero:', error);
     }
 }
-
