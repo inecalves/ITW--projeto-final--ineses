@@ -79,7 +79,7 @@ var vm = function () {
         const api_url = "http://192.168.160.58/Paris2024/api/Sports/Search";
 
         $("#procura").autocomplete({
-            minLength: 1,
+            minLength: 3,
             source: function (request, response) {
                 $.ajax({
                     type: "GET",
