@@ -12,6 +12,7 @@
     <link href="lib/font-awesome/dist/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="style.css" rel="stylesheet">
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary fixed-top border-bottom">
@@ -116,6 +117,25 @@
     </nav>
     <!--Work Area-->
     <br>
+    <!--graficos-->
+    <div class="container mt-5">
+        <h3>Estatísticas por Modalidade</h3>
+    
+        <!-- Gráfico de Pizza para Atletas -->
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Distribuição dos Atletas por Modalidade</h4>
+                <canvas id="athletesChart" style="width:100%; height:400px;"></canvas>
+            </div>
+    
+            <!-- Gráfico de Pizza para Equipas -->
+            <div class="col-md-6">
+                <h4>Distribuição de Equipas por modalidade</h4>
+                <canvas id="teamsChart" style="width:100%; height:400px;"></canvas>
+            </div>
+        </div>
+    </div>
+    
     <!--TABELA-->
     <div class="container">
         <div class="row border-bottom py-2 mb-2">
@@ -193,6 +213,7 @@
             </div>
         </div>
     </nav>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="lib/knockout/dist/knockout-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/jquery/dist/jquery.min.js"></script>

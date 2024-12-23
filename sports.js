@@ -1,63 +1,41 @@
 // ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
-    //---Variáveis locais
     var self = this;
+
+    //--- Variáveis locais
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/sports');
-    self.displayName = 'Paris 2024 sports List';
+    self.displayName = 'Paris 2024 Sports List';
     self.error = ko.observable('');
-    self.passingMessage = ko.observable('');
     self.sports = ko.observableArray([]);
     self.favourites = ko.observableArray([]);
-    self.currentPage = ko.observable(1);
-    self.pagesize = ko.observable(20);
-    self.totalRecords = ko.observable(50);
-    self.hasPrevious = ko.observable(false);
-    self.hasNext = ko.observable(false);
-    self.previousPage = ko.computed(function () {
-        return self.currentPage() * 1 - 1;
-    }, self);
-    self.nextPage = ko.computed(function () {
-        return self.currentPage() * 1 + 1;
-    }, self);
-    self.fromRecord = ko.computed(function () {
-        return self.previousPage() * self.pagesize() + 1;
-    }, self);
-    self.toRecord = ko.computed(function () {
-        return Math.min(self.currentPage() * self.pagesize(), self.totalRecords());
-    }, self);
-    self.totalPages = ko.observable(0);
-    self.pageArray = function () {
-        var list = [];
-        var size = Math.min(self.totalPages(), 9);
-        var step;
-        if (size < 9 || self.currentPage() === 1)
-            step = 0;
-        else if (self.currentPage() >= self.totalPages() - 4)
-            step = self.totalPages() - 9;
-        else
-            step = Math.max(self.currentPage() - 5, 0);
 
-        for (var i = 1; i <= size; i++)
-            list.push(i + step);
-        return list;
-    };
+    // Variáveis para gráficos
+    var sportNames = [];
+    var athleteCounts = [];
+    var teamCounts = [];
 
-    //--- Page Events
+    // Função principal para carregar dados
     self.activate = function (id) {
         console.log('CALL: getsports...');
-        var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
+        var composedUri = self.baseUri() + "?page=" + id;
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
-            hideLoading();
             self.sports(data);
-            console.log(data[0].Pictogram);
-            self.SetFavourites();
+
+            // Processar dados para os gráficos
+            sportNames = data.map(item => item.Name);
+            athleteCounts = data.map(item => item.Athletes);
+            teamCounts = data.map(item => item.Teams);
+
+            // Criar os gráficos
+            createPieChart('athletesChart', athleteCounts, sportNames, 'Athletes Proportion');
+            createPieChart('teamsChart', teamCounts, sportNames, 'Teams Proportion');
         });
     };
-    //--- Internal functions
+
+    // Função AJAX Helper
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
         return $.ajax({
             type: method,
             url: uri,
@@ -65,141 +43,67 @@ var vm = function () {
             contentType: 'application/json',
             data: data ? JSON.stringify(data) : null,
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log("AJAX Call[" + uri + "] Fail...");
-                hideLoading();
-                self.error(errorThrown);
+                console.error(`AJAX Call[${uri}] failed:`, errorThrown);
             }
         });
     }
 
-
-    //Barra de pesquisa
-    $(document).ready(function () {
-
-        const api_url = "http://192.168.160.58/Paris2024/api/Sports/Search";
-
-        $("#procura").autocomplete({
-            minLength: 3,
-            source: function (request, response) {
-                $.ajax({
-                    type: "GET",
-                    url: api_url,
-                    data: {
-                        q: $('#procura').val().toLowerCase()
+    // Função para criar gráficos redondos
+    function createPieChart(canvasId, data, labels, title) {
+        let ctx = document.getElementById(canvasId).getContext('2d');
+        new Chart(ctx, {
+            type: 'pie', // ou 'doughnut' para gráficos em anel
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: generateColors(data.length)
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
                     },
-                    success: function (data) {
-                        if (!data.length) {
-                            var result = [{
-                                label: 'Sem resultados',
-                                value: response.term,
-                            }];
-                            response(result);
-                        } else {
-                            var nData = $.map(data.slice(0, 5), function (value, key) {
-                                return {
-                                    label: value.Name,
-                                    value: value.Id,
-                                }
-                            });
-                            results = $.ui.autocomplete.filter(nData, request.term);
-                            response(results);
-                        }
-                    },
-                    error: function () {
-                        alert("error!");
+                    title: {
+                        display: true,
+                        text: title
                     }
-                })
-            },
-            select: function (event, ui) {
-                event.preventDefault();
-                $("#procura").val(ui.item.label);
-                window.location.href = "./sportsDetails.html?id=" + ui.item.value;
-
-
-                // h.loadTitleModal(ui.item.value)
-            },
-            focus: function (event, ui) {
-                $("#procura").val(ui.item.label);
+                }
             }
         });
-    });
-
-    function sleep(milliseconds) {
-        const start = Date.now();
-        while (Date.now() - start < milliseconds);
     }
 
-    function showLoading() {
-        $("#myModal").modal('show', {
-            backdrop: 'static',
-            keyboard: false
-        });
-    }
-    function hideLoading() {
-        $('#myModal').on('shown.bs.modal', function (e) {
-            $("#myModal").modal('hide');
-        })
+    // Função para gerar cores aleatórias
+    function generateColors(length) {
+        return Array.from({ length }, () => `hsl(${Math.random() * 360}, 70%, 70%)`);
     }
 
-    function getUrlParameter(sParam) {
-        var sPageURL = window.location.search.substring(1),
-            sURLVariables = sPageURL.split('&'),
-            sParameterName,
-            i;
-        console.log("sPageURL=", sPageURL);
-        for (i = 0; i < sURLVariables.length; i++) {
-            sParameterName = sURLVariables[i].split('=');
-
-            if (sParameterName[0] === sParam) {
-                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-            }
-        }
-    };
-
-
-    //Favoritos
-    self.favourites = ko.observableArray([]);   
-        self.toggleFavourite = function (id) {
-        if (self.favourites.indexOf(id) == -1) {
+    // Inicializar favoritos
+    self.toggleFavourite = function (id) {
+        if (self.favourites.indexOf(id) === -1) {
             self.favourites.push(id);
-        }
-        else {
+        } else {
             self.favourites.remove(id);
         }
-        localStorage.setItem("fav4", JSON.stringify(self.favourites()));
+        localStorage.setItem("favourites", JSON.stringify(self.favourites()));
     };
 
-    self.SetFavourites = function () {
-        let storage;
-        try {
-            storage = JSON.parse(localStorage.getItem("fav4"));
+    self.setFavourites = function () {
+        const storedFavourites = JSON.parse(localStorage.getItem("favourites"));
+        if (Array.isArray(storedFavourites)) {
+            self.favourites(storedFavourites);
         }
-        catch (e) {
-            ;
-        }
-        if (Array.isArray(storage)) {
-            self.favourites(storage);
-        }
-    }
-
-
-    //--- start ....
-    showLoading();
-    var pg = getUrlParameter('page');
-    console.log(pg);
-    if (pg == undefined)
-        self.activate(1);
-    else {
-        self.activate(pg);
-    }
-    console.log("VM initialized!");
     };
 
+    // Inicializar ViewModel
+    self.setFavourites();
+    self.activate(1);
+};
+
+// Inicializar o Knockout.js
 $(document).ready(function () {
-    console.log("ready!");
+    console.log("Ready!");
     ko.applyBindings(new vm());
 });
-
-$(document).ajaxComplete(function (event, xhr, options) {
-    $("#myModal").modal('hide');
-})
