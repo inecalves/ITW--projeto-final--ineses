@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
     <link href="lib/font-awesome/dist/css/font-awesome.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary fixed-top border-bottom">
@@ -115,6 +118,13 @@
     </nav>
     <!--Work Area-->
     <br>
+    <!-- Mapa -->
+    <div class="container mt-4">
+        <h2 class="text-center">Percurso da Tocha</h2>
+        <div id="map" style="width: 100%; height: 600px;"></div>
+    </div>
+
+
     <!--TABELA-->
     <div class="container">
         <div class="border-bottom py-2 mb-2">
