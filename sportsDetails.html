@@ -124,12 +124,11 @@
         <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
             <div class="card" style="width: 300px; height: 470px;">
                 <!-- ko if: Pictogram-->
-                <img class="img-thumbnail" data-bind="attr:{src: Pictogram}" style="width: 300px; height: 350px;" class="card-img-top w-100 d-block fit-cover" >
+                <img class="img-thumbnail" data-bind="attr:{src: Pictogram}" style="width: 300px; height: 350px;" class="card-img-top w-100 d-block fit-cover" onerror="this.onerror=null;this.src='Images/no-image.jpg';" >
                 <!-- /ko-->
                 <!-- ko ifnot: Pictogram-->
-                <img src="https://www.concordclub.org/wp-content/uploads/2018/03/club-pers-no-photo.jpg">
+                <img src="Images/no-image.jpg">
                 <!-- /ko-->
-                <!--<img src="..." class="card-img-top" alt="...">-->
                 <div class="card-body p-4">
                     <p class="card-text" data-bind="text:Name"></p>
                 </div>
