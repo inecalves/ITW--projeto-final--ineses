@@ -202,174 +202,213 @@
                     </li>
                 </ul>
             </nav>
-    
-            <!-- Conteúdo das Cidades -->
             <div class="col-md-9">
-                <div id="scrollspy-content" 
-                     class="scrollspy-example" 
-                     data-bs-spy="scroll" 
-                     data-bs-target="#navbar-example" 
-                     data-bs-offset="56" 
-                     tabindex="0">
-                     
-                     <div class="col-md-9">
-                        <div id="scrollspy-content" class="scrollspy-example" data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="56" tabindex="0">
-                            
-                            <!-- Nice -->
-                            <div id="nice-section">
-                                <h4 id="nice"><strong>Nice</strong></h4>
-                                <img src="Images/nice.jpg" alt="Nice" class="img-fluid mb-3 fixed-size-img">
-                                <div class="city-description">
-                                    <p>Nice é conhecida por sua bela costa e pelo charme da Riviera Francesa. Durante os Jogos Olímpicos de 2024, sediou competições de vela e futebol.</p>
-                                    <button class="btn btn-primary" onclick="showCityDetails('Nice')">Ver meteorologia</button>
-                                </div>
-                                <div class="city-details" id="nice-details">
-                                    <p><strong>Meteorologia Atual:</strong> Soleado, 25°C</p>
-                                    <button class="btn btn-secondary" onclick="hideCityDetails('Nice')">Voltar</button>
-                                </div>
-                            </div>
-                            <p></p>
-                            <!-- Marseille -->
-                            <div id="marseille-section">
-                                <h4 id="marseille"><strong>Marseille</strong></h4>
-                                <img src="Images/marseille.jpg" alt="Marseille" class="img-fluid mb-3 fixed-size-img">
-                                <div class="city-description">
-                                    <p>Marseille é a segunda maior cidade da França, famosa por seu porto histórico. Nos Jogos Olímpicos, foi palco de competições de vela e esportes aquáticos.</p>
-                                    <button class="btn btn-primary" onclick="showCityDetails('Marseille')">Ver meteorologia</button>
-                                </div>
-                                <div class="city-details" id="marseille-details">
-                                    <p><strong>Meteorologia Atual:</strong> Parcialmente nublado, 22°C</p>
-                                    <button class="btn btn-secondary" onclick="hideCityDetails('Marseille')">Voltar</button>
-                                </div>
-                            </div>
-                            <p></p>
-                            <!-- Bordeaux -->
-                            <div id="bordeaux-section">
-                                <h4 id="bordeaux"><strong>Bordeaux</strong></h4>
-                                <img src="Images/bordeaux.webp" alt="Bordeaux" class="img-fluid mb-3 fixed-size-img">
-                                <div class="city-description">
-                                    <p>Bordeaux, conhecida mundialmente como a capital do vinho, sediou emocionantes partidas de futebol durante os Jogos Olímpicos de 2024.</p>
-                                    <button class="btn btn-primary" onclick="showCityDetails('Bordeaux')">Ver meteorologia</button>
-                                </div>
-                                <div class="city-details" id="bordeaux-details">
-                                    <p><strong>Meteorologia Atual:</strong> Ensolarado, 26°C</p>
-                                    <button class="btn btn-secondary" onclick="hideCityDetails('Bordeaux')">Voltar</button>
-                                </div>
-                            </div>
-                            <p></p>
-                            <!-- Paris -->
-                            <div id="paris-section">
-                                <h4 id="paris"><strong>Paris</strong></h4>
-                                <img src="Images/paris.jpg" alt="Paris" class="img-fluid mb-3 fixed-size-img">
-                                <div class="city-description">
-                                    <p>A cidade-luz foi o coração dos Jogos Olímpicos de 2024, sediando eventos icônicos como atletismo, ginástica e as cerimônias de abertura e encerramento.</p>
-                                    <button class="btn btn-primary" onclick="showCityDetails('Paris')">Ver meteorologia</button>
-                                </div>
-                                <div class="city-details" id="paris-details">
-                                    <p><strong>Meteorologia Atual:</strong> Ensolarado, 24°C</p>
-                                    <button class="btn btn-secondary" onclick="hideCityDetails('Paris')">Voltar</button>
-                                </div>
-                            </div>
-                            <p></p>
-                            <!-- Nantes -->
-                            <div id="nantes-section">
-                                <h4 id="nantes"><strong>Nantes</strong></h4>
-                                <img src="Images/nantes.jpg" alt="Nantes" class="img-fluid mb-3 fixed-size-img">
-                                <div class="city-description">
-                                    <p>Nantes, localizada no oeste da França, foi anfitriã de competições de futebol durante os Jogos Olímpicos de 2024.</p>
-                                    <button class="btn btn-primary" onclick="showCityDetails('Nantes')">Ver meteorologia</button>
-
-                                </div>
-                                <div class="city-details" id="nantes-details">
-                                    <p><strong>Meteorologia Atual:</strong> Nublado, 20°C</p>
-                                    <button class="btn btn-secondary" onclick="hideCityDetails('Nantes')">Voltar</button>
-                                </div>
-                            </div>
-                            <p></p>
-                            <!-- Lille -->
-                            <div id="lille-section">
-                                <h4 id="lille"><strong>Lille</strong></h4>
-                                <img src="Images/lille.JPG" alt="Lille" class="img-fluid mb-3 fixed-size-img">
-                                <div class="city-description">
-                                    <p>Lille é uma cidade vibrante no norte da França, com arquitetura flamenga. Durante os Jogos Olímpicos, sediou competições de futebol e esportes indoor.</p>
-                                    <button class="btn btn-primary" onclick="showCityDetails('Lille')">Ver meteorologia</button>
-
-                                </div>
-                                <div class="city-details" id="lille-details">
-                                    <p><strong>Meteorologia Atual:</strong> Chuvoso, 18°C</p>
-                                    <button class="btn btn-secondary" onclick="hideCityDetails('Lille')">Voltar</button>
-                                </div>
-                            </div>
+                <div id="scrollspy-content" class="scrollspy-example" data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="56" tabindex="0">
+                    
+                    <!-- Nice -->
+                    <div id="nice-section">
+                        <h4 id="nice"><strong>Nice</strong></h4>
+                        <img src="Images/nice.jpg" alt="Nice" class="img-fluid mb-3 fixed-size-img">
+                        <div class="city-description">
+                            <p>Nice é conhecida por sua bela costa e pelo charme da Riviera Francesa. Durante os Jogos Olímpicos de 2024, sediou competições de vela e futebol.</p>
+                            <button class="btn btn-primary" onclick="fetchWeatherData('Nice')">Ver meteorologia</button>
                         </div>
-            </div>            
-        </div>
-    </div>
+                        <div id="nice-weather-container" class="d-none">
+                            <table class="table table-striped">
+                                <tr><td>City Name:</td><td id="nice-cityName"></td></tr>
+                                <tr><td>Coordinates:</td><td id="nice-coordinates"></td></tr>
+                                <tr><td>Weather:</td><td id="nice-weather"></td></tr>
+                                <tr><td>Temp:</td><td id="nice-temp"></td></tr>
+                                <tr><td>Pressure:</td><td id="nice-pressure"></td></tr>
+                                <tr><td>Humidity:</td><td id="nice-humidity"></td></tr>
+                            </table>
+                            <button class="btn btn-secondary" onclick="hideWeatherData('Nice')">Fechar</button>
+                        </div>
+                        <p></p>
+                    </div>
+            
+                    <!-- Marseille -->
+                    <div id="marseille-section">
+                        <h4 id="marseille"><strong>Marseille</strong></h4>
+                        <img src="Images/marseille.jpg" alt="Marseille" class="img-fluid mb-3 fixed-size-img">
+                        <div class="city-description">
+                            <p>Marseille é a segunda maior cidade da França, famosa por seu porto histórico. Nos Jogos Olímpicos, foi palco de competições de vela e esportes aquáticos.</p>
+                            <button class="btn btn-primary" onclick="fetchWeatherData('Marseille')">Ver meteorologia</button>
+                        </div>
+                        <div id="marseille-weather-container" class="d-none">
+                            <table class="table table-striped">
+                                <tr><td>City Name:</td><td id="marseille-cityName"></td></tr>
+                                <tr><td>Coordinates:</td><td id="marseille-coordinates"></td></tr>
+                                <tr><td>Weather:</td><td id="marseille-weather"></td></tr>
+                                <tr><td>Temp:</td><td id="marseille-temp"></td></tr>
+                                <tr><td>Pressure:</td><td id="marseille-pressure"></td></tr>
+                                <tr><td>Humidity:</td><td id="marseille-humidity"></td></tr>
+                            </table>
+                            <button class="btn btn-secondary" onclick="hideWeatherData('Marseille')">Fechar</button>
+                        </div>
+                        <p></p>
+                    </div>
+            
+                    <!-- Bordeaux -->
+                    <div id="bordeaux-section">
+                        <h4 id="bordeaux"><strong>Bordeaux</strong></h4>
+                        <img src="Images/bordeaux.webp" alt="Bordeaux" class="img-fluid mb-3 fixed-size-img">
+                        <div class="city-description">
+                            <p>Bordeaux, conhecida mundialmente como a capital do vinho, sediou emocionantes partidas de futebol durante os Jogos Olímpicos de 2024.</p>
+                            <button class="btn btn-primary" onclick="fetchWeatherData('Bordeaux')">Ver meteorologia</button>
+                        </div>
+                        <div id="bordeaux-weather-container" class="d-none">
+                            <table class="table table-striped">
+                                <tr><td>City Name:</td><td id="bordeaux-cityName"></td></tr>
+                                <tr><td>Coordinates:</td><td id="bordeaux-coordinates"></td></tr>
+                                <tr><td>Weather:</td><td id="bordeaux-weather"></td></tr>
+                                <tr><td>Temp:</td><td id="bordeaux-temp"></td></tr>
+                                <tr><td>Pressure:</td><td id="bordeaux-pressure"></td></tr>
+                                <tr><td>Humidity:</td><td id="bordeaux-humidity"></td></tr>
+                            </table>
+                            <button class="btn btn-secondary" onclick="hideWeatherData('Bordeaux')">Fechar</button>
+                        </div>
+                        <p></p>
+                    </div>
+            
+                    <!-- Paris -->
+                    <div id="paris-section">
+                        <h4 id="paris"><strong>Paris</strong></h4>
+                        <img src="Images/paris.jpg" alt="Paris" class="img-fluid mb-3 fixed-size-img">
+                        <div class="city-description">
+                            <p>A cidade-luz foi o coração dos Jogos Olímpicos de 2024, sediando eventos icônicos como atletismo, ginástica e as cerimônias de abertura e encerramento.</p>
+                            <button class="btn btn-primary" onclick="fetchWeatherData('Paris')">Ver meteorologia</button>
+                        </div>
+                        <div id="paris-weather-container" class="d-none">
+                            <table class="table table-striped">
+                                <tr><td>City Name:</td><td id="paris-cityName"></td></tr>
+                                <tr><td>Coordinates:</td><td id="paris-coordinates"></td></tr>
+                                <tr><td>Weather:</td><td id="paris-weather"></td></tr>
+                                <tr><td>Temp:</td><td id="paris-temp"></td></tr>
+                                <tr><td>Pressure:</td><td id="paris-pressure"></td></tr>
+                                <tr><td>Humidity:</td><td id="paris-humidity"></td></tr>
+                            </table>
+                            <button class="btn btn-secondary" onclick="hideWeatherData('Paris')">Fechar</button>
+                        </div>
+                        <p></p>
+                    </div>
+            
+                    <!-- Nantes -->
+                    <div id="nantes-section">
+                        <h4 id="nantes"><strong>Nantes</strong></h4>
+                        <img src="Images/nantes.jpg" alt="Nantes" class="img-fluid mb-3 fixed-size-img">
+                        <div class="city-description">
+                            <p>Nantes, localizada no oeste da França, foi anfitriã de competições de futebol durante os Jogos Olímpicos de 2024.</p>
+                            <button class="btn btn-primary" onclick="fetchWeatherData('Nantes')">Ver meteorologia</button>
+                        </div>
+                        <div id="nantes-weather-container" class="d-none">
+                            <table class="table table-striped">
+                                <tr><td>City Name:</td><td id="nantes-cityName"></td></tr>
+                                <tr><td>Coordinates:</td><td id="nantes-coordinates"></td></tr>
+                                <tr><td>Weather:</td><td id="nantes-weather"></td></tr>
+                                <tr><td>Temp:</td><td id="nantes-temp"></td></tr>
+                                <tr><td>Pressure:</td><td id="nantes-pressure"></td></tr>
+                                <tr><td>Humidity:</td><td id="nantes-humidity"></td></tr>
+                            </table>
+                            <button class="btn btn-secondary" onclick="hideWeatherData('Nantes')">Fechar</button>
+                        </div>
+                        <p></p>
+                    </div>
+            
+                    <!-- Lille -->
+                    <div id="lille-section">
+                        <h4 id="lille"><strong>Lille</strong></h4>
+                        <img src="Images/lille.JPG" alt="Lille" class="img-fluid mb-3 fixed-size-img">
+                        <div class="city-description">
+                            <p>Lille é uma cidade vibrante no norte da França, com arquitetura flamenga. Durante os Jogos Olímpicos, sediou competições de futebol e esportes indoor.</p>
+                            <button class="btn btn-primary" onclick="fetchWeatherData('Lille')">Ver meteorologia</button>
+                        </div>
+                        <div id="lille-weather-container" class="d-none">
+                            <table class="table table-striped">
+                                <tr><td>City Name:</td><td id="lille-cityName"></td></tr>
+                                <tr><td>Coordinates:</td><td id="lille-coordinates"></td></tr>
+                                <tr><td>Weather:</td><td id="lille-weather"></td></tr>
+                                <tr><td>Temp:</td><td id="lille-temp"></td></tr>
+                                <tr><td>Pressure:</td><td id="lille-pressure"></td></tr>
+                                <tr><td>Humidity:</td><td id="lille-humidity"></td></tr>
+                            </table>
+                            <button class="btn btn-secondary" onclick="hideWeatherData('Lille')">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+    
+            
     
 
-    <!-- Detalhes da Cidade -->
-    <div class="container mt-3 d-none" id="city-details-container">
-        <h2 id="city-name"></h2>
-        <p id="city-info"></p>
-        <p><strong>Meteorologia Atual:</strong> <span id="city-weather">Carregando...</span></p>
-        <a href="#" class="btn btn-secondary" onclick="goBackToCities()">Voltar para Cidades</a>
-    </div>
-
+    
     <script>
+        function fetchWeatherData(city) {
+            const containerId = city.toLowerCase() + "-weather-container";
+            const tableIdPrefix = city.toLowerCase() + "-";
+    
+            // Realiza a chamada à API do OpenWeatherMap
+            $.ajax({
+                url: "http://api.openweathermap.org/data/2.5/weather",
+                data: {
+                    q: city + ", FR", // Nome da cidade com a abreviação do país
+                    APPID: "cdbdb28dd34a24359dc5661b99813412", // Chave da API
+                    units: "metric", // Unidade métrica
+                    lang: "pt" // Idioma português
+                },
+                success: function (data) {
+                    // Mostra o container de meteorologia
+                    $(`#${containerId}`).removeClass("d-none");
+                    
+                    // Atualiza os valores da tabela
+                    $(`#${tableIdPrefix}cityName`).html(`${data.name} / ${data.sys.country}`);
+                    $(`#${tableIdPrefix}coordinates`).html(`Lon: ${data.coord.lon}, Lat: ${data.coord.lat}`);
+                    $(`#${tableIdPrefix}weather`).html(`<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png" alt="Weather Icon" /> ${data.weather[0].description}`);
+                    $(`#${tableIdPrefix}temp`).html(`${data.main.temp}°C (Sensação térmica: ${data.main.feels_like}°C)`);
+                    $(`#${tableIdPrefix}pressure`).html(`${data.main.pressure} hPa`);
+                    $(`#${tableIdPrefix}humidity`).html(`${data.main.humidity}%`);
+                },
+                error: function () {
+                    alert("Erro ao buscar dados meteorológicos.");
+                }
+            });
+        }
+    
+        function hideWeatherData(city) {
+            const containerId = city.toLowerCase() + "-weather-container";
+    
+            // Esconde o container de meteorologia
+            $(`#${containerId}`).addClass("d-none");
+        }
+    
         function goBackToCities() {
             document.getElementById("city-details-container").classList.add("d-none");
             document.getElementById("scrollspy-content").classList.remove("d-none");
         }
-
+    
         async function showCityDetails(city) {
-            // Buscar informações meteorológicas
-            const weatherInfo = await fetchWeather(city);
-
-            // Atualizar os detalhes meteorológicos
+            // Mostrar os detalhes da cidade junto com a meteorologia
+            fetchWeatherData(city);
             const citySection = document.querySelector(`#${city.toLowerCase()}-section`);
             citySection.querySelector(".city-description").style.display = "none"; // Esconde a descrição
             const detailsSection = citySection.querySelector(".city-details");
             detailsSection.style.display = "block"; // Mostra os detalhes
-            detailsSection.querySelector("p").innerHTML = `<strong>Meteorologia Atual:</strong> ${weatherInfo}`;
         }
-
+    
         function hideCityDetails(city) {
             // Restaurar a exibição inicial
             const citySection = document.querySelector(`#${city.toLowerCase()}-section`);
             citySection.querySelector(".city-description").style.display = "block"; // Mostra a descrição
             citySection.querySelector(".city-details").style.display = "none"; // Esconde os detalhes
         }
-
-        const apiKey = "cdbdb28dd34a24359dc5661b99813412";
-        const cityData = {
-            Nice: { lat: 43.7102, lon: 7.2620 },
-            Marseille: { lat: 43.2965, lon: 5.3698 },
-            Bordeaux: { lat: 44.8378, lon: -0.5792 },
-            Paris: { lat: 48.8566, lon: 2.3522 },
-            Nantes: { lat: 47.2184, lon: -1.5536 },
-            Lille: { lat: 50.6292, lon: 3.0573 }
-        };
-
-        async function fetchWeather(city) {
-            const { lat, lon } = cityData[city];
-            const apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily&appid=${apiKey}&units=metric`;
-
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error("Erro ao buscar dados meteorológicos");
-                }
-
-                const data = await response.json();
-                return `Temperatura: ${data.current.temp}°C, Condições: ${data.current.weather[0].description}`;
-            } catch (error) {
-                console.error(error);
-                return "Meteorologia indisponível no momento";
-            }
-        }
-
-
-
     </script>
+    
+    
+
+
+
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     
