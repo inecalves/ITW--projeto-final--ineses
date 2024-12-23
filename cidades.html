@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country_Medals</title>
+    <link rel="icon" href="Images/olympics.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
+    <link href="lib/font-awesome/dist/css/font-awesome.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        .text-bronze {
+            color: #cd7f32; /* Cor de bronze */
+        }
+        .scrollspy-example {
+            position: relative;
+            height: 500px;
+            overflow-y: scroll;
+        }
+        #navbar-example {
+            position: sticky;
+            top: 0;
+        }
+       
+        .scrollspy-example {
+            position: relative;
+            height: 500px;
+            overflow-y: scroll;
+        }
+
+        .scrollspy-example h4 {
+            scroll-margin-top: 56px; /* Garante alinhamento correto ao rolar */
+        }
+
+        .fixed-size-img {
+            width: 300px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-left: 20px;
+        }
+
+        .fixed-size-img:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .city-details {
+            display: none; /* Escondido inicialmente */
+        }
+
+        .city-details.active {
+            display: block; /* Mostrado quando ativo */
+        }
+        .city-description,
+        .city-details {
+            transition: all 0.3s ease-in-out;
+        }
+        .city-details {
+            display: none; /* Escondido por padrão */
+        }
+
+</style>
+
+</style>
+
+    </style>
+    
+    
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary fixed-top border-bottom">
+        <div class="container">
+            <!-- Logotipo -->
+            <a class="navbar-brand" href="index.html"><img src="Images/Paris2024.png" height="40" alt="Logo do Site"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline">
+                    <!--Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tabelas Principais
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item" href="athletes.html"><i class="fa fa-user text-danger"></i> Atletas</a></li>
+                            <li><a class="dropdown-item" href="coaches.html"><i class="fa fa-users text-primary"></i> Treinadores</a></li>
+                            <li><a class="dropdown-item" href="technical_officials.html"><i class="fa fa-wrench text-warning"></i> Árbitros | Técnicos</a></li>
+                            <hr />
+                            <li><a class="dropdown-item" href="teams.html"><i class="fa fa-shield text-info"></i> Equipas</a></li>
+                            <hr />
+                            <li><a class="dropdown-item" href="sports.html"><i class="fa fa-futbol-o text-secondary"></i> Modalidades</a></li>
+                            <li><a class="dropdown-item" href="competitions.html"><i class="fa fa-flag-checkered text-success"></i> Competições</a></li>
+                            <hr />
+                            <li><a class="dropdown-item" href="index.html"><i class="fa fa-home text-muted"></i> Home | Index</a></li>
+                        </ul>
+                    </li>
+                     <!-- Dropdown Torneios -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Torneios
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item" href="Athletics.html"><i class="fa fa-flag-checkered"></i> Atletismo</a></li>
+                            <li><a class="dropdown-item" href="Basketballs.html"><i class="fa fa-dot-circle-o"></i> Basquetebol</a></li>
+                            <li><a class="dropdown-item" href="Canoe_Sprints.html"><i class="fa fa-anchor"></i> Canoagem de velocidade</a></li>
+                            <li><a class="dropdown-item" href="Cycling_Tracks.html"><i class="fa fa-bicycle text-success"></i> Ciclismo de pista</a></li>
+                            <li><a class="dropdown-item" href="Footballs.html"><i class="fa fa-futbol-o text-primary"></i> Futebol</a></li>
+                            <li><a class="dropdown-item" href="Swimmings.html"><i class="fa fa-tint text-info"></i> Natação</a></li>
+                        </ul>
+                    </li>
+                    <!--Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Outros
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item" href="venues.html"><i class="fa fa-university"></i> Estádios | Espaços</a></li>      
+                            <li><a class="dropdown-item" href="torch_route.html"><i class="fa fa-fire text-danger"></i> Percurso da Tocha</a></li>
+                            <hr />
+                            <li><a class="dropdown-item" href="NOCs.html"><i class="fa fa-globe" style="color: #09712c;"></i> Comités Olímpicos Nacionais</a></li>
+                            <hr />
+                            <li><a class="dropdown-item" href="countryMedals.html"><i class="fa fa-trophy text-warning"></i> Medalhas por País</a></li>
+                        </ul>
+                    </li>     
+                </ul>
+                <!-- Botões de Tema e Carrinho -->
+                <ul class="navbar-nav d-flex align-items-center nav-underline" id="bd-theme">
+                    <!--Link para os favoritos-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="favoritos.html"><i class="fa fa-heart text-danger"></i></a>
+                    </li>
+                    <!-- Link para Quiz -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="quiz.html">Quiz</a>
+                    </li>
+                    <!-- Link para Merch -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="loja.html">Merch</a>
+                    </li>
+                    <!-- Ícone do Carrinho -->
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" title="Carrinho">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span id="cart-count" class="badge rounded-pill bg-success d-none">0</span>
+                        </a>
+                    </li>
+                    <!-- Separador -->
+                    <li class="navbar-text hstack mx-2">
+                        <div class="vr"></div>
+                    </li>
+                    <!-- Botões de Modo Claro/Escuro -->
+                    <li class="nav-item">
+                        <div class="nav-link" id="lightMode" type="button" data-bs-theme-value="light" aria-pressed="false">
+                            <i class="theme-icon fa fa-sun-o" title="Modo claro"></i>
+                        </div>
+                    </li>
+                    <li class="navbar-text hstack">
+                        <div class="vr"></div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link" id="darkMode" type="button" data-bs-theme-value="dark" aria-pressed="false">
+                            <i class="theme-icon fa fa-moon-o" title="Modo escuro"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-5 pt-5">
+        <h1>Cidades Olímpicas</h1>
+        <hr>
+        <div class="row">
+            <!-- Menu de navegação lateral para Scrollspy -->
+            <nav id="navbar-example" class="col-md-3">
+                <ul class="nav flex-column nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#nice">Nice</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#marseille">Marseille</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#bordeaux">Bordeaux</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#paris">Paris</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#nantes">Nantes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#lille">Lille</a>
+                    </li>
+                </ul>
+            </nav>
+    
+            <!-- Conteúdo das Cidades -->
+            <div class="col-md-9">
+                <div id="scrollspy-content" 
+                     class="scrollspy-example" 
+                     data-bs-spy="scroll" 
+                     data-bs-target="#navbar-example" 
+                     data-bs-offset="56" 
+                     tabindex="0">
+                     
+                     <div class="col-md-9">
+                        <div id="scrollspy-content" class="scrollspy-example" data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="56" tabindex="0">
+                            
+                            <!-- Nice -->
+                            <div id="nice-section">
+                                <h4 id="nice"><strong>Nice</strong></h4>
+                                <img src="Images/nice.jpg" alt="Nice" class="img-fluid mb-3 fixed-size-img">
+                                <div class="city-description">
+                                    <p>Nice é conhecida por sua bela costa e pelo charme da Riviera Francesa. Durante os Jogos Olímpicos de 2024, sediou competições de vela e futebol.</p>
+                                    <button class="btn btn-primary" onclick="showCityDetails('Nice')">Ver meteorologia</button>
+                                </div>
+                                <div class="city-details" id="nice-details">
+                                    <p><strong>Meteorologia Atual:</strong> Soleado, 25°C</p>
+                                    <button class="btn btn-secondary" onclick="hideCityDetails('Nice')">Voltar</button>
+                                </div>
+                            </div>
+                            <p></p>
+                            <!-- Marseille -->
+                            <div id="marseille-section">
+                                <h4 id="marseille"><strong>Marseille</strong></h4>
+                                <img src="Images/marseille.jpg" alt="Marseille" class="img-fluid mb-3 fixed-size-img">
+                                <div class="city-description">
+                                    <p>Marseille é a segunda maior cidade da França, famosa por seu porto histórico. Nos Jogos Olímpicos, foi palco de competições de vela e esportes aquáticos.</p>
+                                    <button class="btn btn-primary" onclick="showCityDetails('Marseille')">Ver meteorologia</button>
+                                </div>
+                                <div class="city-details" id="marseille-details">
+                                    <p><strong>Meteorologia Atual:</strong> Parcialmente nublado, 22°C</p>
+                                    <button class="btn btn-secondary" onclick="hideCityDetails('Marseille')">Voltar</button>
+                                </div>
+                            </div>
+                            <p></p>
+                            <!-- Bordeaux -->
+                            <div id="bordeaux-section">
+                                <h4 id="bordeaux"><strong>Bordeaux</strong></h4>
+                                <img src="Images/bordeaux.webp" alt="Bordeaux" class="img-fluid mb-3 fixed-size-img">
+                                <div class="city-description">
+                                    <p>Bordeaux, conhecida mundialmente como a capital do vinho, sediou emocionantes partidas de futebol durante os Jogos Olímpicos de 2024.</p>
+                                    <button class="btn btn-primary" onclick="showCityDetails('Bordeaux')">Ver meteorologia</button>
+                                </div>
+                                <div class="city-details" id="bordeaux-details">
+                                    <p><strong>Meteorologia Atual:</strong> Ensolarado, 26°C</p>
+                                    <button class="btn btn-secondary" onclick="hideCityDetails('Bordeaux')">Voltar</button>
+                                </div>
+                            </div>
+                            <p></p>
+                            <!-- Paris -->
+                            <div id="paris-section">
+                                <h4 id="paris"><strong>Paris</strong></h4>
+                                <img src="Images/paris.jpg" alt="Paris" class="img-fluid mb-3 fixed-size-img">
+                                <div class="city-description">
+                                    <p>A cidade-luz foi o coração dos Jogos Olímpicos de 2024, sediando eventos icônicos como atletismo, ginástica e as cerimônias de abertura e encerramento.</p>
+                                    <button class="btn btn-primary" onclick="showCityDetails('Paris')">Ver meteorologia</button>
+                                </div>
+                                <div class="city-details" id="paris-details">
+                                    <p><strong>Meteorologia Atual:</strong> Ensolarado, 24°C</p>
+                                    <button class="btn btn-secondary" onclick="hideCityDetails('Paris')">Voltar</button>
+                                </div>
+                            </div>
+                            <p></p>
+                            <!-- Nantes -->
+                            <div id="nantes-section">
+                                <h4 id="nantes"><strong>Nantes</strong></h4>
+                                <img src="Images/nantes.jpg" alt="Nantes" class="img-fluid mb-3 fixed-size-img">
+                                <div class="city-description">
+                                    <p>Nantes, localizada no oeste da França, foi anfitriã de competições de futebol durante os Jogos Olímpicos de 2024.</p>
+                                    <button class="btn btn-primary" onclick="showCityDetails('Nantes')">Ver meteorologia</button>
+
+                                </div>
+                                <div class="city-details" id="nantes-details">
+                                    <p><strong>Meteorologia Atual:</strong> Nublado, 20°C</p>
+                                    <button class="btn btn-secondary" onclick="hideCityDetails('Nantes')">Voltar</button>
+                                </div>
+                            </div>
+                            <p></p>
+                            <!-- Lille -->
+                            <div id="lille-section">
+                                <h4 id="lille"><strong>Lille</strong></h4>
+                                <img src="Images/lille.JPG" alt="Lille" class="img-fluid mb-3 fixed-size-img">
+                                <div class="city-description">
+                                    <p>Lille é uma cidade vibrante no norte da França, com arquitetura flamenga. Durante os Jogos Olímpicos, sediou competições de futebol e esportes indoor.</p>
+                                    <button class="btn btn-primary" onclick="showCityDetails('Lille')">Ver meteorologia</button>
+
+                                </div>
+                                <div class="city-details" id="lille-details">
+                                    <p><strong>Meteorologia Atual:</strong> Chuvoso, 18°C</p>
+                                    <button class="btn btn-secondary" onclick="hideCityDetails('Lille')">Voltar</button>
+                                </div>
+                            </div>
+                        </div>
+            </div>            
+        </div>
+    </div>
+    
+
+    <!-- Detalhes da Cidade -->
+    <div class="container mt-3 d-none" id="city-details-container">
+        <h2 id="city-name"></h2>
+        <p id="city-info"></p>
+        <p><strong>Meteorologia Atual:</strong> <span id="city-weather">Carregando...</span></p>
+        <a href="#" class="btn btn-secondary" onclick="goBackToCities()">Voltar para Cidades</a>
+    </div>
+
+    <script>
+        function goBackToCities() {
+            document.getElementById("city-details-container").classList.add("d-none");
+            document.getElementById("scrollspy-content").classList.remove("d-none");
+        }
+
+        async function showCityDetails(city) {
+            // Buscar informações meteorológicas
+            const weatherInfo = await fetchWeather(city);
+
+            // Atualizar os detalhes meteorológicos
+            const citySection = document.querySelector(`#${city.toLowerCase()}-section`);
+            citySection.querySelector(".city-description").style.display = "none"; // Esconde a descrição
+            const detailsSection = citySection.querySelector(".city-details");
+            detailsSection.style.display = "block"; // Mostra os detalhes
+            detailsSection.querySelector("p").innerHTML = `<strong>Meteorologia Atual:</strong> ${weatherInfo}`;
+        }
+
+        function hideCityDetails(city) {
+            // Restaurar a exibição inicial
+            const citySection = document.querySelector(`#${city.toLowerCase()}-section`);
+            citySection.querySelector(".city-description").style.display = "block"; // Mostra a descrição
+            citySection.querySelector(".city-details").style.display = "none"; // Esconde os detalhes
+        }
+
+        const apiKey = "cdbdb28dd34a24359dc5661b99813412";
+        const cityData = {
+            Nice: { lat: 43.7102, lon: 7.2620 },
+            Marseille: { lat: 43.2965, lon: 5.3698 },
+            Bordeaux: { lat: 44.8378, lon: -0.5792 },
+            Paris: { lat: 48.8566, lon: 2.3522 },
+            Nantes: { lat: 47.2184, lon: -1.5536 },
+            Lille: { lat: 50.6292, lon: 3.0573 }
+        };
+
+        async function fetchWeather(city) {
+            const { lat, lon } = cityData[city];
+            const apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily&appid=${apiKey}&units=metric`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error("Erro ao buscar dados meteorológicos");
+                }
+
+                const data = await response.json();
+                return `Temperatura: ${data.current.temp}°C, Condições: ${data.current.weather[0].description}`;
+            } catch (error) {
+                console.error(error);
+                return "Meteorologia indisponível no momento";
+            }
+        }
+
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--Scripts -->
+    <script src="lib/knockout/dist/knockout-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"
+    integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA="
+    crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+
+    <script src="darkmode.js"></script>
+</body>
+</html>
