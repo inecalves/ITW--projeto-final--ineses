@@ -3,23 +3,81 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Canoe_Sprints/Events');
+    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Canoe_Sprints');
     self.displayName = 'Paris2024 Canoe_Sprints Events List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.events = ko.observableArray([]);
+    self.eventsFiltrados = ko.observableArray([]);
 
     //--- Page Events
-    self.activate = function (id) {
+    
+    //--- Para aparecer os dados para o select - endpoint: /Events
+    self.getEvents = function () {
         console.log('CALL: getEvents...');
-        var composedUri = self.baseUri()
+        var composedUri = self.baseUri() + "/Events"
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
             hideLoading();
             self.events(data);
-            //self.SetFavourites();
         });
     };
+
+    //--- EventId selecionado no primeiro <select>
+    self.selectedEventId = ko.observable();
+
+    //--- Nome do evento selecionado para exibição
+    self.selectedEventName = ko.computed(function() {
+        var eventId = self.selectedEventId();
+        var event = self.events().find(e => e.EventId === eventId);
+        return event ? event.EventName : "Selecione um evento";
+    });
+
+    //--- Fases do evento selecionado
+    self.stages = ko.computed(function() {
+        var eventId = self.selectedEventId();
+        var event = self.events().find(e => e.EventId === eventId);
+        return event ? event.Stages : [];
+    });
+
+    //--- StageId selecionado no segundo <select>
+    self.selectedStageId = ko.observable();
+
+
+    //--- Ir buscar os dados ao endpoint: ?EventId={EventId}&StageId={StageId}
+    self.selectedEventId.subscribe(function (newValue) {
+        if (newValue) {
+            // Pesquisa com EventId e, se disponível, com StageId
+            var composedUri = `${self.baseUri()}?EventId=${newValue}&StageId=`;
+            if (self.selectedStageId()) {
+                composedUri += `&StageId=${self.selectedStageId()}`;
+            }
+            console.log('CALL: getEventsFiltrados...');
+            ajaxHelper(composedUri, 'GET').done(function (data) {
+                console.log(data);
+                self.eventsFiltrados(data);
+            });
+        }
+    });
+    
+    self.selectedStageId.subscribe(function (newValue) {
+        if (newValue && self.selectedEventId()) {
+            // Pesquisa específica com EventId e StageId
+            var composedUri = `${self.baseUri()}?EventId=${self.selectedEventId()}&StageId=${newValue}`;
+            console.log('CALL: getEventsFiltrados...');
+            ajaxHelper(composedUri, 'GET').done(function (data) {
+                console.log(data);
+                self.eventsFiltrados(data);
+            });
+        }
+    });
+
+    // Inicializar
+    self.activate = function () {
+        self.getEvents();
+    };
+
+    self.activate();
 
     //--- Internal functions
     function ajaxHelper(uri, method, data) {

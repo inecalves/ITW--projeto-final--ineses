@@ -170,7 +170,12 @@
                         <a class="nav-link" data-bind=" attr: { href: Sport_url }" title="Show Details"><i class ="fa fa-share-alt-square"></i> Saiba mais</a></td>
                     </td>
                     <td class="align-middle">
-                        <img class="img-thumbnail" data-bind="attr:{ src: Pictogram }" alt="Pictogram" style="max-width: 100px; max-height: 100px;" />
+                        <!-- ko if: Pictogram-->
+                        <img class="img-thumbnail" data-bind="attr:{ src: Pictogram }" alt="Pictogram" style="max-width: 100px; max-height: 100px;" onerror="this.onerror=null;this.src='Images/no-image.jpg';"/>
+                        <!-- /ko -->
+                        <!-- ko ifnot: Pictogram-->
+                        <img style="max-width: 100px; max-height: 100px;" src="Images/no-image.jpg">
+                        <!-- /ko-->
                     </td>
                     <td class="align-middle" data-bind="text:Athletes"></td>
                     <td class="align-middle" data-bind="text:Coaches"></td>

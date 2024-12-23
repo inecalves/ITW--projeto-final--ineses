@@ -124,10 +124,10 @@
         <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
             <div class="card" style="width: 300px; height: 470px;">
                 <!-- ko if: Photo-->
-                <img class="img-thumbnail" data-bind="attr:{src: Photo}" style="width: 300px; height: 350px;" class="card-img-top w-100 d-block fit-cover" >
+                <img class="img-thumbnail" data-bind="attr:{src: Photo}" style="width: 300px; height: 350px;" class="card-img-top w-100 d-block fit-cover" onerror="this.onerror=null;this.src='/Images/PersonNotFound.png';" >
                 <!-- /ko-->
                 <!-- ko ifnot: Photo-->
-                <img src="https://www.concordclub.org/wp-content/uploads/2018/03/club-pers-no-photo.jpg">
+                <img src="Images/PersonNotFound.png">
                 <!-- /ko-->
                 <!--<img src="..." class="card-img-top" alt="...">-->
                 <div class="card-body p-4">

@@ -161,7 +161,7 @@
 
             <div class="row g-2 justify-content-center" data-bind="foreach: athletes">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card m-3">
+                    <div class="card m-3 shadow">
                         <div class="card-header" style="text-align: center;">
                             <h5 class="card-title text-truncate" data-bind="text:Name"></h5>
                         </div>
@@ -171,12 +171,12 @@
                                     <img class="img-thumbnail card-image img-fluid" 
                                         data-bind="attr: { src: Photo }"
                                         style="max-height: 302px;" 
-                                        onerror="this.onerror=null;this.src='/Images/no-image.jpg';">
+                                        onerror="this.onerror=null;this.src='/Images/PersonNotFound.png';">
                                 </a>
                             <!-- /ko -->
                                 <!-- Caso não exista a foto, exibe a imagem padrão -->
                             <!-- ko ifnot: Photo -->
-                                <img src="/Images/no-image.jpg" style="width: 250px; height:290px">
+                                <img src="/Images/PersonNotFound.png" style="width: 250px; height:290px">
                             <!-- /ko -->
                             <hr>
                             <div style="padding-left: 92px;">
