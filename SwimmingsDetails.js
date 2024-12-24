@@ -3,8 +3,8 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Basketballs/?id=');
-    self.displayName = 'Basketballs Details';
+    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Swimmings/?id=');
+    self.displayName = 'Swimmings Details';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
 
