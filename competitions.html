@@ -120,8 +120,14 @@
     <br>
     <!--TABELA-->
     <div class="container">
-        <div class="border-bottom py-2 mb-2">
-            <h2 data-bind="text:displayName"></h2>
+        <div class="row border-bottom py-2 mb-2">
+            <h2 class="col-6" data-bind="text:displayName"></h2>
+            <div class="col-6" id="cover">
+                <div class="row" style="justify-content:end">
+                    <button class="btn btn-light col-1" type="button" id="searchButton"><i class="fa fa-search"></i></button>
+                    <input class="form-control col-5" type="text" placeholder="Search" aria-label="Search" style="width:40%" id="procura" name="procura" autocomplete="on">
+                </div>
+            </div>
         </div>
         <!-- ko if:competitions().length > 0 -->
         <div class="row small">

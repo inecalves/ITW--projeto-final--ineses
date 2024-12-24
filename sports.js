@@ -87,15 +87,99 @@ var vm = function () {
         } else {
             self.favourites.remove(id);
         }
-        localStorage.setItem("favourites", JSON.stringify(self.favourites()));
+        localStorage.setItem("fav4", JSON.stringify(self.favourites()));
     };
 
     self.setFavourites = function () {
-        const storedFavourites = JSON.parse(localStorage.getItem("favourites"));
+        const storedFavourites = JSON.parse(localStorage.getItem("fav4"));
         if (Array.isArray(storedFavourites)) {
             self.favourites(storedFavourites);
         }
     };
+
+    //Barra de pesquisa
+    $(document).ready(function () {
+        const api_url = "http://192.168.160.58/Paris2024/api/Sports/Search";
+    
+        function executeSearch() {
+            const searchTerm = $('#procura').val().toLowerCase();
+    
+            if (searchTerm.length >= 3) {
+                $.ajax({
+                    type: "GET",
+                    url: api_url,
+                    data: {
+                        q: searchTerm
+                    },
+                    success: function (data) {
+                        if (!data.length) {
+                            alert('Sem resultados para: ' + searchTerm);
+                        } else {
+                            // Redirecione para os detalhes do primeiro resultado, por exemplo:
+                            const firstResult = data[0];
+                            window.location.href = "./sportsDetails.html?id=" + firstResult.Id;
+                        }
+                    },
+                    error: function () {
+                        alert("Erro na pesquisa!");
+                    }
+                });
+            } else {
+                alert("Por favor, insira pelo menos 3 caracteres para pesquisar.");
+            }
+        }
+    
+        // AutoComplete com sugestão
+        $("#procura").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                $.ajax({
+                    type: "GET",
+                    url: api_url,
+                    data: {
+                        q: request.term.toLowerCase()
+                    },
+                    success: function (data) {
+                        if (!data.length) {
+                            response([{ label: 'Sem resultados', value: null }]);
+                        } else {
+                            response($.map(data.slice(0, 5), function (value) {
+                                return {
+                                    label: value.Name,
+                                    value: value.Id
+                                };
+                            }));
+                        }
+                    },
+                    error: function () {
+                        alert("Erro ao buscar sugestões!");
+                    }
+                });
+            },
+            select: function (event, ui) {
+                event.preventDefault();
+                $("#procura").val(ui.item.label);
+                if (ui.item.value) {
+                    window.location.href = "./sportsDetails.html?id=" + ui.item.value;
+                }
+            },
+            focus: function (event, ui) {
+                $("#procura").val(ui.item.label);
+            }
+        });
+    
+        // Acionar pesquisa ao clicar no botão
+        $('#searchButton').on('click', function () {
+            executeSearch();
+        });
+    
+        // Acionar pesquisa ao pressionar "Enter" na barra de pesquisa
+        $('#procura').on('keypress', function (e) {
+            if (e.which === 13) {
+                executeSearch();
+            }
+        });
+    });
 
     // Inicializar ViewModel
     self.setFavourites();

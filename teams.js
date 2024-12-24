@@ -80,9 +80,37 @@ var vm = function () {
 
     //Barra de pesquisa
     $(document).ready(function () {
-
         const api_url = "http://192.168.160.58/Paris2024/api/Teams/Search";
-
+    
+        function executeSearch() {
+            const searchTerm = $('#procura').val().toLowerCase();
+    
+            if (searchTerm.length >= 3) {
+                $.ajax({
+                    type: "GET",
+                    url: api_url,
+                    data: {
+                        q: searchTerm
+                    },
+                    success: function (data) {
+                        if (!data.length) {
+                            alert('Sem resultados para: ' + searchTerm);
+                        } else {
+                            // Redirecione para os detalhes do primeiro resultado, por exemplo:
+                            const firstResult = data[0];
+                            window.location.href = "./teamsDetails.html?id=" + firstResult.Id;
+                        }
+                    },
+                    error: function () {
+                        alert("Erro na pesquisa!");
+                    }
+                });
+            } else {
+                alert("Por favor, insira pelo menos 3 caracteres para pesquisar.");
+            }
+        }
+    
+        // AutoComplete com sugestão
         $("#procura").autocomplete({
             minLength: 3,
             source: function (request, response) {
@@ -90,41 +118,46 @@ var vm = function () {
                     type: "GET",
                     url: api_url,
                     data: {
-                        q: $('#procura').val().toLowerCase()
+                        q: request.term.toLowerCase()
                     },
                     success: function (data) {
                         if (!data.length) {
-                            var result = [{
-                                label: 'Sem resultados',
-                                value: response.term,
-                            }];
-                            response(result);
+                            response([{ label: 'Sem resultados', value: null }]);
                         } else {
-                            var nData = $.map(data.slice(0, 5), function (value, key) {
+                            response($.map(data.slice(0, 5), function (value) {
                                 return {
                                     label: value.Name,
-                                    value: value.Id,
-                                }
-                            });
-                            results = $.ui.autocomplete.filter(nData, request.term);
-                            response(results);
+                                    value: value.Id
+                                };
+                            }));
                         }
                     },
                     error: function () {
-                        alert("error!");
+                        alert("Erro ao buscar sugestões!");
                     }
-                })
+                });
             },
             select: function (event, ui) {
                 event.preventDefault();
                 $("#procura").val(ui.item.label);
-                window.location.href = "./teamsDetails.html?id=" + ui.item.value;
-
-
-                // h.loadTitleModal(ui.item.value)
+                if (ui.item.value) {
+                    window.location.href = "./teamsDetails.html?id=" + ui.item.value;
+                }
             },
             focus: function (event, ui) {
                 $("#procura").val(ui.item.label);
+            }
+        });
+    
+        // Acionar pesquisa ao clicar no botão
+        $('#searchButton').on('click', function () {
+            executeSearch();
+        });
+    
+        // Acionar pesquisa ao pressionar "Enter" na barra de pesquisa
+        $('#procura').on('keypress', function (e) {
+            if (e.which === 13) {
+                executeSearch();
             }
         });
     });
