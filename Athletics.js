@@ -20,11 +20,18 @@ var vm = function () {
             console.log(data);
             hideLoading();
             self.events(data);
+
+            // Selecionar automaticamente o primeiro evento se não houver um selecionado
+            if (data.length > 0 && !self.selectedEventId()) {
+                self.selectedEventId(data[0].EventId); // Substitua por outro EventId se necessário
+            }
         });
     };
 
     //--- EventId selecionado no primeiro <select>
     self.selectedEventId = ko.observable();
+    //--- StageId selecionado no segundo <select>
+    self.selectedStageId = ko.observable();
 
     //--- Nome do evento selecionado para exibição
     self.selectedEventName = ko.computed(function() {
@@ -39,10 +46,6 @@ var vm = function () {
         var event = self.events().find(e => e.EventId === eventId);
         return event ? event.Stages : [];
     });
-
-    //--- StageId selecionado no segundo <select>
-    self.selectedStageId = ko.observable();
-
 
     //--- Ir buscar os dados ao endpoint: ?EventId={EventId}&StageId={StageId}
     self.selectedEventId.subscribe(function (newValue) {

@@ -20,6 +20,11 @@ var vm = function () {
             console.log(data);
             hideLoading();
             self.events(data);
+
+            // Selecionar automaticamente o primeiro evento se não houver um selecionado
+            if (data.length > 0 && !self.selectedEventId()) {
+                self.selectedEventId(data[0].EventId); // Substitua por outro EventId se necessário
+            }
         });
     };
 
