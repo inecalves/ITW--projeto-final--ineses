@@ -10,3 +10,4 @@ Alterações feitas:
 - gráficos pizza ( 1-distribuição de atletas por modalidades,2-distribuição de equipas por modalidades) em modalidades
 - scrollspy e API externa para obter a meteorologia das cidades francesas em cidades
 - mapa com o trajeto da tocha olimpica
+- gráfico da Percentagem de Treinadores por Sexo em treinadores
