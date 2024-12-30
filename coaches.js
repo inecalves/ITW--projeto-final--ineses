@@ -194,6 +194,104 @@ var vm = function () {
             }
         }
     };
+    function createBarChart(canvasId, data, labels, title) {
+        let ctx = document.getElementById(canvasId).getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Percentagem',
+                    data: data,
+                    backgroundColor: ['#ADD8E6', '#FFB6C1'], // Cores para Masculino e Feminino
+                    borderColor: ['#ADD8E6', '#FFB6C1'], // Bordas para Masculino e Feminino
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Gráfico horizontal
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: title
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%'; // Adiciona "%" aos valores
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    function renderGenderChart() {
+        const apiUrl = 'http://192.168.160.58/Paris2024/API/Coaches';
+        let allCoaches = []; // Para armazenar todos os treinadores
+    
+        // Função recursiva para buscar todas as páginas
+        function fetchAllPages(page = 1) {
+            return $.ajax({
+                url: `${apiUrl}?page=${page}&pageSize=50`,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    allCoaches = allCoaches.concat(data.Coaches); // Adiciona os treinadores da página atual
+                    console.log(`Página ${page} carregada, total atual: ${allCoaches.length} treinadores.`);
+    
+                    if (data.HasNext) {
+                        fetchAllPages(page + 1); // Busca a próxima página
+                    } else {
+                        processGenderChart(allCoaches); // Quando terminar, processa os dados
+                    }
+                },
+                error: function (error) {
+                    console.error("Erro na API:", error);
+                }
+            });
+        }
+    
+        // Função para calcular e renderizar o gráfico
+        function processGenderChart(coaches) {
+            console.log("Todos os treinadores:", coaches);
+    
+            const totalCoaches = coaches.length;
+            const maleCount = coaches.filter(coach => coach.Sex.toLowerCase() === 'male').length;
+            const femaleCount = coaches.filter(coach => coach.Sex.toLowerCase() === 'female').length;
+    
+            console.log("Total de Treinadores:", totalCoaches);
+            console.log("Masculino:", maleCount, "Feminino:", femaleCount);
+    
+            const malePercentage = ((maleCount / totalCoaches) * 100).toFixed(1);
+            const femalePercentage = ((femaleCount / totalCoaches) * 100).toFixed(1);
+    
+            console.log("Percentagens -> Masculino:", malePercentage, "Feminino:", femalePercentage);
+    
+            const chartData = [malePercentage, femalePercentage];
+            const chartLabels = ['Masculino', 'Feminino'];
+    
+            createBarChart('genderChart', chartData, chartLabels, 'Percentagem de Treinadores por Sexo');
+        }
+    
+        // Inicia a busca recursiva a partir da página 1
+        fetchAllPages(1);
+    }
+    
+    // Chama a função para renderizar o gráfico após a página carregar
+    $(document).ready(function () {
+        renderGenderChart();
+    });
+    
 
 
     //Favoritos
