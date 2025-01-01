@@ -2,9 +2,9 @@
 
 Alterações feitas:
 - Imgdefault adicionada em quase todos os "campos"
-- Filtragem nos torneios todos
-- Details em todos - mas só funcionam os do basket e do futebol
-- Toast no index
+- Pesquisa filtrada nos torneios todos
+- Details em todos os torneios
+- Toast no index: "give love"
 - Icon funcional em todas as search bars existentes (o das competições ainda não funciona)
 - offcanvas com bodyscrolling com a história dos jogos olimpicos no index
 - gráficos pizza ( 1-distribuição de atletas por modalidades,2-distribuição de equipas por modalidades) em modalidades
