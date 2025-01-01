@@ -11,3 +11,4 @@ Alterações feitas:
 - scrollspy e API externa para obter a meteorologia das cidades francesas em cidades
 - mapa com o trajeto da tocha olimpica
 - gráfico da Percentagem de Treinadores por Sexo em treinadores
+- mapa com os estádios em venues criado com OpenStreetMap e a biblioteca Leaflet.js
