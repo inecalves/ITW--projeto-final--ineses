@@ -18,6 +18,10 @@ a:hover {
     color: #333333;
 }
 
+.form-floating {
+    font-family: 'Open Sans', "sans-serif";
+}
+
 
 .navbar-nav .nav-link {    
     font-size: 1.2em;
