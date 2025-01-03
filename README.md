@@ -15,3 +15,4 @@ Alterações feitas:
 - mapa com os estádios em venues criado com OpenStreetMap e a biblioteca Leaflet.js
 - Duas ordens diferentes de apresentar os dados das medalhas na tabela: por ordem alfabética e por ordem do nº total de medalhas
 - Dois popovers nas medalhas
+- Um modal no index.html que contem nav-tabs com informação sobre quem fez o projeto
