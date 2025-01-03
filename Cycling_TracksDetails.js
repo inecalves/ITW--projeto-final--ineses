@@ -4,7 +4,7 @@ var vm = function () {
     //---Variáveis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Cycling_Tracks/?id=');
-    self.displayName = 'Basketballs Details';
+    self.displayName = 'Cycling Tracks Details';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
 

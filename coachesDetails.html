@@ -123,12 +123,18 @@
         </div>
         <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
             <div class="card" style="width: 300px; height: 470px;">
-                <!-- ko if: Photo-->
-                <img class="img-thumbnail" data-bind="attr:{src: Photo}" style="width: 300px; height: 350px;" class="card-img-top w-100 d-block fit-cover" onerror="this.onerror=null;this.src='/Images/PersonNotFound.png';">
-                <!-- /ko-->
-                <!-- ko ifnot: Photo-->
-                <img src="Images/PersonNotFound.png">
-                <!-- /ko-->
+                <!-- ko if: Photo -->
+                    <a data-bind="attr: { href: Photo }">
+                        <img class="img-thumbnail card-image img-fluid" 
+                            data-bind="attr: { src: Photo }"
+                            style="max-height: 302px;" 
+                            onerror="this.onerror=null;this.src='./Images/PersonNotFound.png';">
+                    </a>
+                <!-- /ko -->
+                    <!-- Caso não exista a foto, exibe a imagem padrão -->
+                <!-- ko ifnot: Photo -->
+                    <img src="./Images/PersonNotFound.png" style="width: 250px; height:290px">
+                <!-- /ko -->
                 <div class="card-body p-4">
                     <p class="card-text" data-bind="text:Name"></p>
                 </div>
