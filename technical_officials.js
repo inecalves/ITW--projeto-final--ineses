@@ -56,7 +56,6 @@ var vm = function () {
             self.pagesize(data.PageSize)
             self.totalPages(data.TotalPages);
             self.totalRecords(data.TotalOfficials);
-            //self.SetFavourites();
         });
     };
 
@@ -78,8 +77,8 @@ var vm = function () {
     }
 
 
-     //Barra de pesquisa
-     $(document).ready(function () {
+    //Barra de pesquisa
+    $(document).ready(function () {
         const api_url = "http://192.168.160.58/Paris2024/api/Technical_officials/Search";
     
         function executeSearch() {
@@ -193,6 +192,104 @@ var vm = function () {
             }
         }
     };
+
+    function createBarChart(canvasId, data, labels, title) {
+        let ctx = document.getElementById(canvasId).getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Percentagem',
+                    data: data,
+                    backgroundColor: ['#ADD8E6', '#FFB6C1'], // Cores para Masculino e Feminino
+                    borderColor: ['#ADD8E6', '#FFB6C1'], // Bordas para Masculino e Feminino
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Gráfico horizontal
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: title
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%'; // Adiciona "%" aos valores
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    function renderGenderChart() {
+        const apiUrl = 'http://192.168.160.58/Paris2024/API/Technical_officials';
+        let allTechnical_officials = []; // Para armazenar todos os técnicos/árbitros
+    
+        // Função recursiva para buscar todas as páginas
+        function fetchAllPages(page = 1) {
+            return $.ajax({
+                url: `${apiUrl}?page=${page}&pageSize=50`,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    allTechnical_officials = allTechnical_officials.concat(data.Technical_officials); // Adiciona os técnicos da página atual
+                    console.log(`Página ${page} carregada, total atual: ${allTechnical_officials.length} técnicos.`);
+    
+                    if (data.HasNext) {
+                        fetchAllPages(page + 1); // Busca a próxima página
+                    } else {
+                        processGenderChart(allTechnical_officials); // Quando terminar, processa os dados
+                    }
+                },
+                error: function (error) {
+                    console.error("Erro na API:", error);
+                }
+            });
+        }
+    
+        // Função para calcular e renderizar o gráfico
+        function processGenderChart(technical_officials) {
+            console.log("Todos os Técnicos:", technical_officials);
+    
+            const totalOfficials = technical_officials.length;
+            const maleCount = technical_officials.filter(technical_official => technical_official.Sex.toLowerCase() === 'male').length;
+            const femaleCount = technical_officials.filter(technical_official => technical_official.Sex.toLowerCase() === 'female').length;
+    
+            console.log("Total de Técnicos:", totalOfficials);
+            console.log("Masculino:", maleCount, "Feminino:", femaleCount);
+    
+            const malePercentage = ((maleCount / totalOfficials) * 100).toFixed(1);
+            const femalePercentage = ((femaleCount / totalOfficials) * 100).toFixed(1);
+    
+            console.log("Percentagens -> Masculino:", malePercentage, "Feminino:", femalePercentage);
+    
+            const chartData = [malePercentage, femalePercentage];
+            const chartLabels = ['Masculino', 'Feminino'];
+    
+            createBarChart('genderChart', chartData, chartLabels, 'Percentagem de Técnicos/Árbitros por Sexo');
+        }
+    
+        // Inicia a busca recursiva a partir da página 1
+        fetchAllPages(1);
+    }
+    
+    // Chama a função para renderizar o gráfico após a página carregar
+    $(document).ready(function () {
+        renderGenderChart();
+    });
 
     //--- start ....
     showLoading();

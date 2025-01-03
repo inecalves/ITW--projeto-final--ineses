@@ -194,6 +194,7 @@ var vm = function () {
             }
         }
     };
+
     function createBarChart(canvasId, data, labels, title) {
         let ctx = document.getElementById(canvasId).getContext('2d');
         new Chart(ctx, {
