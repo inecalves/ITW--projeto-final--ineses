@@ -11,7 +11,7 @@ Alterações feitas:
 - nova adição: Cidades
 - scrollspy e API externa para obter a meteorologia das cidades francesas em cidades
 - mapa com o trajeto da tocha olimpica
-- gráfico da Percentagem de Treinadores por Sexo em treinadores e nos árbitros/técnicos (um bocado bugado - dar refresh na página)
+- gráfico da Percentagem de Treinadores por Sexo em treinadores e nos árbitros/técnicos (um bocado bugado - dar refresh na página / ir a outra tabela - por exemplo dos atletas e voltar a entrar nesta)
 - mapa com os estádios em venues criado com OpenStreetMap e a biblioteca Leaflet.js
 - Duas ordens diferentes de apresentar os dados das medalhas na tabela: por ordem alfabética e por ordem do nº total de medalhas
 - Dois popovers nas medalhas

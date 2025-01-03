@@ -194,7 +194,6 @@ var vm = function () {
         }
     };
 
-
     //Favoritos
     self.favourites = ko.observableArray([]);   
         self.toggleFavourite = function (id) {
@@ -219,7 +218,6 @@ var vm = function () {
             self.favourites(storage);
         }
     }
-
 
     //--- start ....
     showLoading();
