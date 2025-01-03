@@ -5,6 +5,9 @@ var vm = function () {
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/CountryMedals');
     self.displayName = 'Paris 2024 Country Medals';
     self.records = ko.observableArray([]);
+    //adicionado a partir daqui
+    self.Countries = ko.observable(92);
+    self.Order = ko.observable();
 
     // Variáveis para o gráfico
     var countryNames = [];
@@ -15,7 +18,7 @@ var vm = function () {
     // Função principal para carregar dados
     self.activate = function () {
         console.log('CALL: getCountryMedals...');
-        var composedUri = self.baseUri();
+        var composedUri = self.baseUri() + "?Countries=" + self.Countries() + (self.Order() ? "&Order=" + self.Order() : "");;
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
             self.records(data);
@@ -45,6 +48,14 @@ var vm = function () {
         });
     }
 
+    // Função para atualizar a ordem
+    self.setOrder = function (orderValue) {
+        console.log(`Setting order to: ${orderValue}`);
+        self.Order(orderValue); // Atualiza o observable Order
+        self.activate();        // Chama a função activate para recarregar os dados
+    };
+
+    
     // Função para criar o gráfico com Chart.js
     function createMedalsChart() {
         let ctx = document.getElementById('medalsChart').getContext('2d');
